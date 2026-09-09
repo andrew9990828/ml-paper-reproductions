@@ -2,14 +2,14 @@
 # RAG Reproduction — Chunk the wikipedia pages
 #
 # Author: Andrew Bieber <andrewbieber.work@gmail.com>
-# Last Updated: September 7, 2026
+# Last Updated: September 8, 2026
 #
 # File: chunker.py
 #
 # Description:
 # Reads each wikipedia page I have saved locally in this project
 # Stores them all as chunks of x size (I'm making it configurable)
-# All chunks labeled into a local json file under data/processed/chunks.json
+# All chunks labeled into a local json file under data/chunks/*.jsonl
 #
 # Paper:
 # "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
