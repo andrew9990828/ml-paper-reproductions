@@ -77,4 +77,6 @@ if __name__ == "__main__":
 
     # All chunks are located here
     save_name = "data/embeddings/embeddings_size100.pt"
-    embed_chunk("data/chunks/chunks_size100.jsonl", save_name)
+    with torch.inference_mode(
+        embed_chunk("data/chunks/chunks_size100.jsonl", save_name)
+    )
