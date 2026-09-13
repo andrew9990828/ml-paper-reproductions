@@ -40,7 +40,7 @@
 
 import torch
 from transformers import DPRQuestionEncoder, DPRQuestionEncoderTokenizer
-
+import json
 
 # Important to note that for the embedder.py file we used the contextencoder
 # Here we want to use the DPRQuestionEncoder and tokenizer!
@@ -70,9 +70,10 @@ def load_embeddings(file_path: str) -> torch.Tensor:
     chunk_embeddings = torch.load(file_path)
     return chunk_embeddings
 
-def retrieve(chunk_embeddings: torch.Tensor,
-             query_embeddings: torch.Tensor,
-             k: int) -> tuple[torch.Tensor, torch.Tensor]:
+def retrieve(
+    chunk_embeddings: torch.Tensor,
+    query_embeddings: torch.Tensor,
+    k: int) -> tuple[torch.Tensor, torch.Tensor]:
     
     # Follows the math of the description
     comparison = query_embeddings @ chunk_embeddings.T
@@ -99,25 +100,22 @@ if __name__ == "__main__":
             TOP_K
         )
 
-    """
-    This is testing we used to verify its actually retrieving.
-    It works exactly as intended.
-    """
-    # # Load the chunks back in the same order they were embedded
-    # with open(chunk_text_path, "r", encoding="utf8") as f:
-    #     chunks = [json.loads(line) for line in f]
+    # Additional Testing
+    # Load the chunks back in the same order they were embedded
+    with open(chunk_text_path, "r", encoding="utf8") as f:
+        chunks = [json.loads(line) for line in f]
 
-    # # Remove batch dimension: [1, 10] -> [10]
-    # scores = scores.squeeze(0)
-    # indices = indices.squeeze(0)
+    # Remove batch dimension: [1, 10] -> [10]
+    scores = scores.squeeze(0)
+    indices = indices.squeeze(0)
 
-    # print("\nTOP RETRIEVED CHUNKS:\n")
+    print("\nTOP RETRIEVED CHUNKS:\n")
 
-    # for score, index in zip(scores, indices):
-    #     idx = index.item()
-    #     chunk = chunks[idx]
+    for score, index in zip(scores, indices):
+        idx = index.item()
+        chunk = chunks[idx]
 
-    #     print(f"Score: {score.item():.4f}")
-    #     print(f"Article: {chunk['article']}")
-    #     print(f"Text: {chunk['text']}")
-    #     print("-" * 80)
+        print(f"Score: {score.item():.4f}")
+        print(f"Article: {chunk['article']}")
+        print(f"Text: {chunk['text']}")
+        print("-" * 80)

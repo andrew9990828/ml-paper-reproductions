@@ -26,7 +26,11 @@ from pathlib import Path
 
 # Save_path should be .jsonl file because originally using a json file and json.dump()
 # was rewriting the chunks everytime only keeping the final chunk of the last page
-def chunk_file(file_path: Path, chunk_size: int, save_path: str, chunk_num: int) -> int:
+def chunk_file(
+    file_path: Path,
+    chunk_size: int, 
+    save_path: str, 
+    chunk_num: int) -> int:
 
     # First just read the entire contents of the given file
     with open(file_path, "r", encoding="utf8") as f:

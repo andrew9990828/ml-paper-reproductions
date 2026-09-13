@@ -59,7 +59,10 @@ def process_all_lines(lines: list[str]) -> list[dict]:
 
     return processed
 
-def embed_chunk(file_path: str, save_path: str) -> None:
+def embed_chunk(
+    file_path: str,
+    save_path: str) -> None:
+    
     lines = load_lines(file_path)
     processed = process_all_lines(lines)
 
