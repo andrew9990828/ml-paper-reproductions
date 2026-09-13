@@ -1,324 +1,367 @@
+Yeah, you’re right. I wrapped the whole thing in triple backticks **and then used triple backticks inside it**, so the outer code block ended early.
+
+Use this version — I’m wrapping the entire README in **four backticks**, so all the internal Markdown code fences stay intact and you can copy/paste the whole thing directly into `README.md`.
+
+````md
 # RAG Reproduction
 
-Paper: https://arxiv.org/pdf/2005.11401
+Paper: [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/pdf/2005.11401)  
+Lewis et al., 2020
 
 ## Goal
 
-Build a small proof-of-concept reproduction of the original RAG architecture using a small Wikipedia corpus.
+Reproduce the core RAG-Sequence architecture from the original paper using a small baseball Wikipedia corpus.
 
-Main experiment:
+The point of this project is not to build a production RAG system.
 
-> Compare open-domain question answering with and without retrieval.
+The goals are to:
+
+- understand the original architecture from the paper
+- implement dense retrieval with DPR
+- understand and implement RAG-Sequence generation
+- compare generation with and without retrieval
+- experiment with how chunk size changes retrieval and final QA performance
+
+A second version of this repo will include an empty implementation skeleton so other people can reproduce the project themselves.
+
+---
 
 ## Architecture
 
 ```text
 Wikipedia Articles
         ↓
-     Chunking
+      Chunking
         ↓
-   DPR Embeddings
+DPR Context Encoder
         ↓
-  Document Index
+Stored Chunk Embeddings
+        ↓
 
 Question
    ↓
-DPR Question Embedding
+DPR Question Encoder
    ↓
-Similarity Search
+Query Embedding
    ↓
-Top-K Retrieved Chunks
+Query @ Chunk_Embeddings.T
    ↓
-BART Generator
+Top-K Chunks
+   ↓
+RAG-Sequence + BART
    ↓
 Answer
 ```
 
-## Stage 1 — Build the Dataset
+---
 
-- Download around 10 Wikipedia articles as `.txt` files.
-- Store each article separately in `data/raw/`.
-- Preserve the source article for every chunk created later.
+## Dataset
 
-Example:
+The corpus contains 10 Wikipedia pages about baseball rules.
+
+Examples include:
+
+- Rules of baseball
+- Strike zone
+- Strikeout
+- Base on balls
+- Balk
+- Force play
+- Tag out
+- Infield fly rule
+- Designated hitter
+- Inning
+
+Each article is downloaded and stored locally as raw text.
 
 ```text
 data/
-└── raw/
-    ├── article_1.txt
-    ├── article_2.txt
-    ├── article_3.txt
-    └── ...
+├── raw/
+├── chunks/
+└── embeddings/
 ```
 
-## Stage 2 — Chunk the Documents
+---
 
-Build a configurable chunking pipeline.
+## Chunking
 
-Initial setup:
+The same corpus is chunked using four different fixed word counts:
 
 ```text
-chunk_size = 100 words
-overlap = 0
+10 words
+25 words
+50 words
+100 words
 ```
 
-Process each document separately and create as many chunks as possible.
+No overlap is used.
 
-Store the result in:
-
-```text
-data/processed/chunks.json
-```
-
-Each chunk should contain:
-
-- chunk ID
-- source document
-- chunk text
-
-Example:
+Each chunk is stored as JSONL with:
 
 ```json
 {
-  "chunk_id": 0,
-  "source": "article_1.txt",
+  "chunk": 1,
+  "article": "strike_zone.txt",
   "text": "..."
 }
 ```
 
-Later, experiment with different chunk sizes and overlap.
+This gives us four versions of the exact same knowledge base while changing only chunk size.
 
-## Stage 3 — Embed the Chunks
+---
 
-Use the pretrained DPR context encoder.
+## DPR Embeddings
 
-Pipeline:
-
-```text
-Chunk Text
-    ↓
-DPR Tokenizer
-    ↓
-Token IDs
-    ↓
-DPR Context Encoder
-    ↓
-Embedding Vector
-```
-
-Store all chunk embeddings as a PyTorch tensor.
-
-Conceptually:
+Each chunk is embedded using the pretrained DPR context encoder:
 
 ```text
-num_chunks × embedding_dimension
+facebook/dpr-ctx_encoder-single-nq-base
 ```
 
-## Stage 4 — Build the Retriever
-
-Given a question:
+Every chunk becomes one vector in:
 
 ```text
-Question
-    ↓
-DPR Question Tokenizer
-    ↓
-DPR Question Encoder
-    ↓
-Query Embedding
+R^768
 ```
 
-Compare the query embedding against every stored chunk embedding.
+For `N` chunks, the stored embedding matrix has shape:
 
-Use PyTorch to:
+```text
+[N, 768]
+```
 
-1. Calculate similarity scores.
-2. Rank the chunks.
-3. Return the top-k most relevant chunks.
+The embeddings are saved as PyTorch `.pt` files.
 
-Conceptually:
+---
+
+## Retriever
+
+Questions are embedded using the paired DPR question encoder:
+
+```text
+facebook/dpr-question_encoder-single-nq-base
+```
+
+For:
+
+```text
+query_embedding  -> [1, 768]
+chunk_embeddings -> [N, 768]
+```
+
+retrieval is:
 
 ```python
-scores = query_embedding @ document_embeddings.T
+scores = query_embedding @ chunk_embeddings.T
 ```
 
-Then:
-
-```python
-top_scores, top_indices = torch.topk(scores, k)
-```
-
-### First Major Milestone
-
-Given a question, print:
-
-- top-k retrieved chunks
-- source document
-- similarity score
-- chunk text
-
-Do **not** add generation until retrieval works properly.
-
-## Stage 5 — Add the Generator
-
-Load pretrained BART weights.
-
-Feed the generator the question and retrieved context.
-
-Basic pipeline:
+which produces:
 
 ```text
-Question
-   ↓
-Retriever
-   ↓
-Top-K Chunks
-   ↓
-Question + Retrieved Context
-   ↓
-BART
-   ↓
-Answer
+[1, N]
 ```
 
-For the first proof of concept, focus on getting retrieval-conditioned generation working before worrying about reproducing every decoding detail from the paper.
+or one relevance score for every chunk.
 
-## Stage 6 — Open-Domain QA Experiment
+The top chunks are then selected with:
 
-Create a small question dataset with known answers.
-
-Example:
-
-```json
-{
-  "question": "Who created ...?",
-  "answer": "...",
-  "expected_source": "article_3.txt"
-}
+```python
+scores, indices = torch.topk(scores, k=TOP_K)
 ```
+
+For the main chunk-size experiment:
+
+```python
+TOP_K = 10
+```
+
+is kept constant.
+
+This lets us change chunk size without also changing retrieval depth.
+
+---
+
+## RAG-Sequence Generator
+
+The generator uses pretrained BART:
+
+```text
+facebook/bart-large
+```
+
+For each retrieved chunk, BART receives:
+
+```text
+question + retrieved chunk
+```
+
+and generates candidate answer sequences.
+
+RAG-Sequence then scores each candidate using all retrieved documents.
+
+The core equation is:
+
+```text
+p(y | x) = Σ p(z | x) * p(y | x, z)
+```
+
+Dumbed down:
+
+```text
+final answer score =
+SUM(
+    how relevant the chunk was
+    *
+    how likely BART thinks the answer is using that chunk
+)
+```
+
+The candidate with the highest RAG-Sequence score becomes the final answer.
+
+---
+
+## Main Experiments
+
+### 1. RAG vs No Retrieval
 
 Compare:
 
 ```text
-BART Alone
+BART alone
 vs.
-BART + RAG
+BART + DPR retrieval
 ```
-
-Track:
-
-- answer accuracy
-- whether the correct passage was retrieved
-- retrieval ranking
-- retrieved similarity score
-
-This lets us separate:
-
-```text
-Retriever Failure
-vs.
-Generator Failure
-```
-
-## Stage 7 — Chunking Experiments
-
-Keep the models and questions the same.
-
-Change only the chunking strategy.
-
-Example chunk sizes:
-
-```text
-50 words
-100 words
-200 words
-```
-
-Optionally test overlap:
-
-```text
-0 words
-20 words
-50 words
-```
-
-Measure how chunking affects:
-
-- retrieval accuracy
-- retrieval ranking
-- final QA accuracy
 
 Main question:
 
-> How much does the way we split external knowledge affect RAG performance?
+> Does external retrieved knowledge improve answer quality compared with the generator alone?
 
-## Stage 8 — Top-K Experiments
+---
 
-Test different numbers of retrieved passages.
+### 2. Chunk Size
 
-Example:
+Keep everything else constant:
+
+```text
+same corpus
+same questions
+same DPR models
+same BART model
+TOP_K = 10
+```
+
+Change only:
+
+```text
+chunk_size = 10
+chunk_size = 25
+chunk_size = 50
+chunk_size = 100
+```
+
+Measure:
+
+- whether the correct information is retrieved
+- retrieval ranking
+- final answer correctness
+- failure cases
+
+Main question:
+
+> How does the amount of information stored in each chunk affect retrieval and generation?
+
+---
+
+### 3. Optional Top-K Experiment
+
+After the chunk-size experiment, hold chunk size constant and vary:
 
 ```text
 k = 1
 k = 3
 k = 5
+k = 10
+k = 20
 ```
 
-Measure whether retrieving more context:
+This is a separate experiment so chunk size and retrieval depth are not changed at the same time.
 
-- improves retrieval coverage
-- improves answer accuracy
-- introduces irrelevant context
-- hurts generation quality
+---
 
-## Stage 9 — Results and Write-Up
+## Evaluation
 
-Document:
+A small baseball QA dataset will contain:
 
-- architecture
-- dataset
-- chunking pipeline
-- retriever implementation
-- generator integration
-- retrieval examples
-- RAG vs. no-RAG results
-- chunk-size results
-- top-k results
-- failure cases
-- differences from the original paper
+```json
+{
+  "question": "What is a strike?",
+  "answer": "...",
+  "expected_source": "strike_zone.txt"
+}
+```
+
+For each question, we can record:
+
+- expected answer
+- expected source
+- retrieved chunks
+- retrieval rank
+- generated answer
+- whether retrieval succeeded
+- whether generation succeeded
+
+This helps separate:
+
+```text
+Retriever Failure
+        vs.
+Generator Failure
+```
+
+---
+
+## Build Progress
+
+```text
+Wikipedia Fetching       ✅
+Chunking                 ✅
+DPR Context Embeddings   ✅
+DPR Question Encoder     ✅
+Dense Retriever          ✅
+Top-K Retrieval          ✅
+BART Generation          🚧
+RAG-Sequence Scoring     🚧
+End-to-End Pipeline      ⬜
+Evaluation               ⬜
+Experiments              ⬜
+Write-Up                 ⬜
+```
+
+---
 
 ## Core Mental Model
 
-```text
-External Knowledge
-      ↓
-Retrieve Relevant Information
-      ↓
-Give It To The Generator
-      ↓
-Generate A Better Answer
-```
-
-The retriever and external document index provide the **non-parametric memory**.
-
-The generator's learned weights provide the **parametric memory**.
-
-## Build Order
+RAG sounds much more complicated than it is.
 
 ```text
-Raw Text
+Question
    ↓
-Chunks
+Find useful information
    ↓
-Embeddings
+Use that information while generating
    ↓
-Retriever
+Score the possible answers
    ↓
-Generation
-   ↓
-Experiments
-   ↓
-Results
+Return the best one
 ```
 
-Do not move to the next stage until the current stage works and makes sense.
+The retriever answers:
+
+> "Where should I look?"
+
+The generator answers:
+
+> "Given what I found, what should I say?"
+
+RAG-Sequence combines both.
+````
