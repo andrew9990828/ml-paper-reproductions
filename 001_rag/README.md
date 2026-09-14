@@ -1,8 +1,3 @@
-Yeah, you’re right. I wrapped the whole thing in triple backticks **and then used triple backticks inside it**, so the outer code block ended early.
-
-Use this version — I’m wrapping the entire README in **four backticks**, so all the internal Markdown code fences stay intact and you can copy/paste the whole thing directly into `README.md`.
-
-````md
 # RAG Reproduction
 
 Paper: [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/pdf/2005.11401)  
