@@ -7,17 +7,17 @@ Lewis et al., 2020
 
 Reproduce the core RAG-Sequence architecture from the original paper using a small baseball Wikipedia corpus.
 
-The point of this project is not to build a production RAG system.
+The point of this project is not to build a production RAG system. The goal is to understand the architecture by implementing the major pieces myself and testing how retrieval changes generation.
 
-The goals are to:
+Main goals:
 
-- understand the original architecture from the paper
 - implement dense retrieval with DPR
-- understand and implement RAG-Sequence generation
+- implement RAG-Sequence generation with BART
 - compare generation with and without retrieval
-- experiment with how chunk size changes retrieval and final QA performance
+- test how chunk size affects retrieval and final QA performance
+- separate retrieval failures from generator failures
 
-A second version of this repo will include an empty implementation skeleton so other people can reproduce the project themselves.
+A second version of the repo will include a blank implementation skeleton so someone else can reproduce the project themselves.
 
 ---
 
@@ -41,39 +41,40 @@ Query Embedding
    ↓
 Query @ Chunk_Embeddings.T
    ↓
-Top-K Chunks
+Top-K Retrieved Chunks
    ↓
-RAG-Sequence + BART
+BART Candidate Generation
    ↓
-Answer
+RAG-Sequence Scoring
+   ↓
+Final Answer
 ```
 
 ---
 
 ## Dataset
 
-The corpus contains 10 Wikipedia pages about baseball rules.
+The knowledge base contains 10 Wikipedia articles about baseball rules:
 
-Examples include:
-
+- Balk
+- Base on balls
+- Designated hitter
+- Force play
+- Infield fly rule
+- Inning
 - Rules of baseball
 - Strike zone
 - Strikeout
-- Base on balls
-- Balk
-- Force play
 - Tag out
-- Infield fly rule
-- Designated hitter
-- Inning
 
-Each article is downloaded and stored locally as raw text.
+The raw articles are stored as `.txt` files.
 
 ```text
 data/
 ├── raw/
 ├── chunks/
-└── embeddings/
+├── embeddings/
+└── eval/
 ```
 
 ---
@@ -91,7 +92,7 @@ The same corpus is chunked using four different fixed word counts:
 
 No overlap is used.
 
-Each chunk is stored as JSONL with:
+Each chunk is stored as JSONL:
 
 ```json
 {
@@ -101,11 +102,20 @@ Each chunk is stored as JSONL with:
 }
 ```
 
-This gives us four versions of the exact same knowledge base while changing only chunk size.
+This creates four versions of the same knowledge base while changing only chunk size.
+
+The chunk files are:
+
+```text
+chunks_size10.jsonl
+chunks_size25.jsonl
+chunks_size50.jsonl
+chunks_size100.jsonl
+```
 
 ---
 
-## DPR Embeddings
+## DPR Context Embeddings
 
 Each chunk is embedded using the pretrained DPR context encoder:
 
@@ -125,7 +135,14 @@ For `N` chunks, the stored embedding matrix has shape:
 [N, 768]
 ```
 
-The embeddings are saved as PyTorch `.pt` files.
+The four embedding matrices are saved as PyTorch `.pt` files:
+
+```text
+embeddings_size10.pt
+embeddings_size25.pt
+embeddings_size50.pt
+embeddings_size100.pt
+```
 
 ---
 
@@ -144,7 +161,7 @@ query_embedding  -> [1, 768]
 chunk_embeddings -> [N, 768]
 ```
 
-retrieval is:
+retrieval is performed using a matrix multiplication:
 
 ```python
 scores = query_embedding @ chunk_embeddings.T
@@ -156,15 +173,15 @@ which produces:
 [1, N]
 ```
 
-or one relevance score for every chunk.
+or one similarity score for every stored chunk.
 
-The top chunks are then selected with:
+The most relevant chunks are selected with:
 
 ```python
 scores, indices = torch.topk(scores, k=TOP_K)
 ```
 
-For the main chunk-size experiment:
+For the main experiment:
 
 ```python
 TOP_K = 10
@@ -172,13 +189,13 @@ TOP_K = 10
 
 is kept constant.
 
-This lets us change chunk size without also changing retrieval depth.
+This lets chunk size change while retrieval depth stays the same.
 
 ---
 
-## RAG-Sequence Generator
+## BART Generator
 
-The generator uses pretrained BART:
+The generator uses:
 
 ```text
 facebook/bart-large
@@ -190,52 +207,184 @@ For each retrieved chunk, BART receives:
 question + retrieved chunk
 ```
 
-and generates candidate answer sequences.
+and generates a candidate answer.
 
-RAG-Sequence then scores each candidate using all retrieved documents.
+With `k = 10`, this initially produces 10 candidate answers.
 
-The core equation is:
+```text
+query + chunk 1  -> candidate 1
+query + chunk 2  -> candidate 2
+...
+query + chunk 10 -> candidate 10
+```
+
+---
+
+## RAG-Sequence
+
+Each candidate is then scored against every retrieved chunk.
+
+For one candidate:
+
+```text
+candidate
+    ↓
+score using chunk 1
+score using chunk 2
+score using chunk 3
+...
+score using chunk 10
+```
+
+The original RAG-Sequence equation is:
 
 ```text
 p(y | x) = Σ p(z | x) * p(y | x, z)
 ```
 
-Dumbed down:
+where:
 
 ```text
-final answer score =
-SUM(
-    how relevant the chunk was
-    *
-    how likely BART thinks the answer is using that chunk
-)
+x = question
+z = retrieved chunk
+y = candidate answer
 ```
 
-The candidate with the highest RAG-Sequence score becomes the final answer.
+The DPR retrieval scores are converted to retrieval log probabilities using:
+
+```python
+torch.log_softmax(...)
+```
+
+BART provides:
+
+```text
+log p(candidate | question, chunk)
+```
+
+For each chunk:
+
+```text
+retrieval log probability
++
+candidate log probability
+```
+
+The chunk scores are combined using:
+
+```python
+torch.logsumexp(...)
+```
+
+This produces one final RAG-Sequence score for each candidate.
+
+```text
+candidate 1 -> one RAG score
+candidate 2 -> one RAG score
+...
+candidate 10 -> one RAG score
+```
+
+The candidate with the highest score is selected with:
+
+```python
+torch.argmax(...)
+```
+
+---
+
+## Evaluation Dataset
+
+The evaluation set contains 50 baseball questions:
+
+```text
+10 source articles
+×
+5 questions per article
+=
+50 questions
+```
+
+Stored in:
+
+```text
+data/eval/baseball_qa.json
+```
+
+Example:
+
+```json
+{
+  "id": 1,
+  "question": "What is a balk?",
+  "answer": "A balk is...",
+  "expected_source": "balk.txt"
+}
+```
+
+The `answer` field is the gold/reference answer.
+
+Later experiment results will also contain:
+
+```text
+baseline_answer
+rag_answer
+```
+
+These are model outputs and are separate from the gold answer.
 
 ---
 
 ## Main Experiments
 
-### 1. RAG vs No Retrieval
+### 1. BART Baseline vs RAG
 
 Compare:
 
 ```text
 BART alone
 vs.
-BART + DPR retrieval
+BART + retrieval
+```
+
+The baseline is run once across all 50 questions.
+
+The RAG system is tested across all four chunk sizes.
+
+This gives:
+
+```text
+50 baseline runs
+
+50 questions × 4 chunk sizes
+=
+200 RAG runs
+```
+
+Total:
+
+```text
+250 QA outputs
 ```
 
 Main question:
 
-> Does external retrieved knowledge improve answer quality compared with the generator alone?
+> Does retrieval improve answer quality compared with BART alone?
 
 ---
 
 ### 2. Chunk Size
 
-Keep everything else constant:
+The same 50 questions are run against:
+
+```text
+10-word chunks
+25-word chunks
+50-word chunks
+100-word chunks
+```
+
+Everything else stays constant:
 
 ```text
 same corpus
@@ -245,31 +394,115 @@ same BART model
 TOP_K = 10
 ```
 
-Change only:
-
-```text
-chunk_size = 10
-chunk_size = 25
-chunk_size = 50
-chunk_size = 100
-```
-
-Measure:
-
-- whether the correct information is retrieved
-- retrieval ranking
-- final answer correctness
-- failure cases
-
 Main question:
 
-> How does the amount of information stored in each chunk affect retrieval and generation?
+> How does chunk size affect retrieval and final answer quality?
 
 ---
 
-### 3. Optional Top-K Experiment
+## Metrics
 
-After the chunk-size experiment, hold chunk size constant and vary:
+The experiment will record enough raw information to separate retrieval performance from generation performance.
+
+Possible metrics include:
+
+- retrieval Hit@10
+- expected-source rank
+- mean reciprocal rank
+- RAG answer accuracy
+- BART baseline accuracy
+- RAG improvement over baseline
+- retrieval failures
+- generator failures
+
+This lets us distinguish:
+
+```text
+Retriever Failure
+        vs.
+Generator Failure
+```
+
+For example:
+
+```text
+correct article not retrieved
+        ↓
+retriever failure
+```
+
+versus:
+
+```text
+correct information retrieved
+but final answer is wrong
+        ↓
+generator failure
+```
+
+---
+
+## Experiment Results
+
+All experiment outputs will be stored in one structured results file:
+
+```text
+results/experiment_results.json
+```
+
+Each question can store:
+
+- gold answer
+- expected source
+- baseline answer
+- retrieved sources
+- retrieved chunk text
+- retrieval scores
+- expected-source rank
+- RAG answer
+- winning candidate
+- RAG score
+- chunk size
+
+This allows analysis and graphing without rerunning the models.
+
+The same results file can later be filtered by:
+
+```text
+chunk_size
+expected_source
+retrieval_success
+answer_correct
+retrieval_rank
+```
+
+---
+
+## Planned Visualizations
+
+The main result will be a bar graph comparing QA accuracy across:
+
+```text
+BART Baseline
+10-word RAG
+25-word RAG
+50-word RAG
+100-word RAG
+```
+
+Separate retrieval graphs can compare the four RAG configurations using metrics such as:
+
+```text
+Hit@10
+MRR
+Expected-source rank
+```
+
+---
+
+## Optional Top-K Experiment
+
+After the chunk-size experiment, chunk size can be held constant while changing:
 
 ```text
 k = 1
@@ -279,39 +512,7 @@ k = 10
 k = 20
 ```
 
-This is a separate experiment so chunk size and retrieval depth are not changed at the same time.
-
----
-
-## Evaluation
-
-A small baseball QA dataset will contain:
-
-```json
-{
-  "question": "What is a strike?",
-  "answer": "...",
-  "expected_source": "strike_zone.txt"
-}
-```
-
-For each question, we can record:
-
-- expected answer
-- expected source
-- retrieved chunks
-- retrieval rank
-- generated answer
-- whether retrieval succeeded
-- whether generation succeeded
-
-This helps separate:
-
-```text
-Retriever Failure
-        vs.
-Generator Failure
-```
+This would test retrieval depth separately from chunk size.
 
 ---
 
@@ -324,30 +525,32 @@ DPR Context Embeddings   ✅
 DPR Question Encoder     ✅
 Dense Retriever          ✅
 Top-K Retrieval          ✅
-BART Generation          🚧
-RAG-Sequence Scoring     🚧
-End-to-End Pipeline      ⬜
-Evaluation               ⬜
+BART Candidate Generation ✅
+RAG-Sequence Scoring     ✅
+Evaluation Dataset       ✅
+End-to-End Pipeline      🚧
+Automated Evaluation     ⬜
 Experiments              ⬜
-Write-Up                 ⬜
+Graphs / Analysis        ⬜
+Final Write-Up           ⬜
 ```
 
 ---
 
 ## Core Mental Model
 
-RAG sounds much more complicated than it is.
+RAG sounds more complicated than it really is.
 
 ```text
 Question
    ↓
 Find useful information
    ↓
-Use that information while generating
+Generate possible answers using that information
    ↓
-Score the possible answers
+Score those answers using retrieval + generation
    ↓
-Return the best one
+Return the best answer
 ```
 
 The retriever answers:
@@ -359,4 +562,3 @@ The generator answers:
 > "Given what I found, what should I say?"
 
 RAG-Sequence combines both.
-````
