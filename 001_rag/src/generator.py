@@ -21,10 +21,14 @@
 # but without that fine-tuning it mostly copied the question/context
 # instead of actually answering the question.
 #
-# For this simplified reproduction, I use FLAN-T5-base as the seq2seq
+# For this simplified reproduction, I use FLAN-T5-large as the seq2seq
 # generator. It already understands instructions like "answer this
 # question using this context", while the RAG-Sequence logic around it
 # stays the same.
+#
+# I originally tested FLAN-T5-base, but it frequently produced extremely
+# short answers or sentence fragments. FLAN-T5-large gives the generator
+# more capacity while keeping the rest of the RAG experiment unchanged.
 #
 # I later moved inference onto my GPU and added batching with help from
 # gpt-5.6-sol. This was my first real exposure to CUDA/inference
@@ -41,7 +45,7 @@ import torch
 import json
 
 
-MODEL_NAME = "google/flan-t5-base"
+MODEL_NAME = "google/flan-t5-large"
 
 # Use the GPU if we have one, otherwise just fall back to the CPU.
 device = torch.device(
@@ -64,7 +68,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained(
 if device.type == "cuda":
     model = model.half()
 
-# disable training mode
+# Disable training mode.
 model.eval()
 
 
@@ -78,13 +82,15 @@ def build_prompt(
 
     if chunk is None:
         return (
-            f"Answer the question.\n"
+            f"Answer the question in one complete sentence. "
+            f"Do not answer with only a single word or sentence fragment.\n"
             f"Question: {query}\n"
             f"Answer:"
         )
 
     return (
-        f"Answer the question using the context.\n"
+        f"Answer the question in one complete sentence using only the provided context. "
+        f"Do not answer with only a single word or sentence fragment.\n"
         f"Question: {query}\n"
         f"Context: {chunk}\n"
         f"Answer:"
@@ -171,7 +177,7 @@ def generate_candidates(
 
     output_ids = model.generate(
         **tokens,
-        max_new_tokens=50
+        max_new_tokens=64
     )
 
     # We generated a whole batch, so decode the whole batch too.
@@ -329,7 +335,7 @@ def generate_no_retrieval(query: str) -> str:
 
     output_ids = model.generate(
         **tokens,
-        max_new_tokens=50
+        max_new_tokens=64
     )
 
     return tokenizer.decode(
