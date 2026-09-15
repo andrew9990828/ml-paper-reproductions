@@ -21,14 +21,20 @@
 # but without that fine-tuning it mostly copied the question/context
 # instead of actually answering the question.
 #
-# For this simplified reproduction, I use FLAN-T5-large as the seq2seq
-# generator. It already understands instructions like "answer this
-# question using this context", while the RAG-Sequence logic around it
-# stays the same.
+# I then tested FLAN-T5-base and FLAN-T5-large because they were already
+# instruction tuned and could actually answer questions from context.
+# That worked a lot better, but obviously moved us farther away from the
+# actual model used in the paper.
 #
-# I originally tested FLAN-T5-base, but it frequently produced extremely
-# short answers or sentence fragments. FLAN-T5-large gives the generator
-# more capacity while keeping the rest of the RAG experiment unchanged.
+# This version uses facebook/rag-sequence-nq, which is Meta's released
+# RAG-Sequence checkpoint fine-tuned on Natural Questions. Instead of
+# using the whole built-in RAG model, I pull out its fine-tuned BART
+# generator and keep the rest of my own retrieval + scoring pipeline.
+#
+# This still is NOT an exact reproduction of the paper because I am not
+# doing their full end-to-end training and this model was fine-tuned on
+# Natural Questions instead of my baseball data. But this gets the
+# generator much closer to the original paper than FLAN-T5 did.
 #
 # I later moved inference onto my GPU and added batching with help from
 # gpt-5.6-sol. This was my first real exposure to CUDA/inference
@@ -40,27 +46,33 @@
 # https://arxiv.org/abs/2005.11401
 # ============================================================
 
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import RagTokenizer, RagSequenceForGeneration
 import torch
 import json
 
 
-MODEL_NAME = "google/flan-t5-large"
+MODEL_NAME = "facebook/rag-sequence-nq"
 
 # Use the GPU if we have one, otherwise just fall back to the CPU.
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
-# Keep tokenization on the CPU.
-tokenizer = AutoTokenizer.from_pretrained(
+# The RAG checkpoint has a question encoder tokenizer and a generator
+# tokenizer. We only need the generator tokenizer in this file.
+rag_tokenizer = RagTokenizer.from_pretrained(
     MODEL_NAME
 )
 
-# Move the generator model onto the GPU.
-model = AutoModelForSeq2SeqLM.from_pretrained(
+tokenizer = rag_tokenizer.generator
+
+# Load the full released RAG checkpoint and pull out the fine-tuned
+# BART generator. My own retriever is still being used separately.
+rag_model = RagSequenceForGeneration.from_pretrained(
     MODEL_NAME
-).to(device)
+)
+
+model = rag_model.generator.to(device)
 
 # Model weights are normally FP32, so about 4 bytes per number.
 # For inference we can use FP16 instead, cutting that roughly in half.
@@ -77,24 +89,16 @@ def build_prompt(
     chunk: str | None = None
     ) -> str:
     """
-    Builds the prompt we give the seq2seq generator.
+    Builds the input we give the BART generator.
     """
 
+    # No retrieved context for the generator-only baseline.
     if chunk is None:
-        return (
-            f"Answer the question in one complete sentence. "
-            f"Do not answer with only a single word or sentence fragment.\n"
-            f"Question: {query}\n"
-            f"Answer:"
-        )
+        return query
 
-    return (
-        f"Answer the question in one complete sentence using only the provided context. "
-        f"Do not answer with only a single word or sentence fragment.\n"
-        f"Question: {query}\n"
-        f"Context: {chunk}\n"
-        f"Answer:"
-    )
+    # The original RAG setup feeds document text + question instead
+    # of using the instruction-style prompt FLAN-T5 needed.
+    return f"{chunk} // {query}"
 
 
 def retrieve_chunked_text(
@@ -265,6 +269,9 @@ def candidate_log_probs(
     # [10]
     #
     # One full candidate log probability for each retrieved chunk.
+    #
+    # We keep the SUM here instead of length-normalizing because this is
+    # the actual sequence probability math used by RAG-Sequence.
     return token_log_probs.sum(dim=1)
 
 
