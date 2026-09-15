@@ -41,43 +41,43 @@ data/eval/results.json
 
 The main idea I wanted to reproduce is the RAG-Sequence objective:
 
-\[
+$$
 P_{\text{RAG-Seq}}(y \mid x)
 =
 \sum_z
 P(z \mid x)
-P(y \mid x, z)
-\]
+P(y \mid x,z)
+$$
 
 where:
 
-- \(x\) is the input question
-- \(z\) is a retrieved document or chunk
-- \(y\) is the complete generated answer sequence
+- $x$ is the input question
+- $z$ is a retrieved document or chunk
+- $y$ is the complete generated answer sequence
 
 For a generated sequence:
 
-\[
+$$
 P(y \mid x,z)
 =
 \prod_{i=1}^{N}
 P(y_i \mid x,z,y_{<i})
-\]
+$$
 
 In log-space, that becomes:
 
-\[
+$$
 \log P(y \mid x,z)
 =
 \sum_{i=1}^{N}
 \log P(y_i \mid x,z,y_{<i})
-\]
+$$
 
 The implementation therefore keeps the **sum of token log probabilities** for each complete candidate sequence rather than length-normalizing them.
 
 For each candidate answer, the implementation computes:
 
-\[
+$$
 \log
 \sum_z
 \exp
@@ -86,7 +86,7 @@ For each candidate answer, the implementation computes:
 +
 \log P(y \mid x,z)
 \right)
-\]
+$$
 
 using `torch.logsumexp`.
 
