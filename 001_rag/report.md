@@ -4,9 +4,9 @@
 
 This project is a simplified reproduction of the core **RAG-Sequence** idea from:
 
-> Patrick Lewis et al.  
+> Patrick Lewis et al.  
 
-> *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*  
+> *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*  
 
 > 2020
 
@@ -51,17 +51,7 @@ data/eval/results.json
 The main idea I wanted to reproduce is the RAG-Sequence objective:
 
 $$
-
-P_{\text{RAG-Seq}}(y \mid x)
-
-=
-
-\sum_z
-
-P(z \mid x)
-
-P(y \mid x,z)
-
+P_{\text{RAG-Seq}}(y \mid x) = \sum_z P(z \mid x) P(y \mid x,z)
 $$
 
 where:
@@ -75,29 +65,13 @@ where:
 For a generated sequence:
 
 $$
-
-P(y \mid x,z)
-
-=
-
-\prod_{i=1}^{N}
-
-P(y_i \mid x,z,y_{<i})
-
+P(y \mid x,z) = \prod_{i=1}^{N} P(y_i \mid x,z,y_{<i})
 $$
 
 In log-space, that becomes:
 
 $$
-
-\log P(y \mid x,z)
-
-=
-
-\sum_{i=1}^{N}
-
-\log P(y_i \mid x,z,y_{<i})
-
+\log P(y \mid x,z) = \sum_{i=1}^{N} \log P(y_i \mid x,z,y_{<i})
 $$
 
 The implementation therefore keeps the **sum of token log probabilities** for each complete candidate sequence rather than length-normalizing them.
@@ -105,23 +79,7 @@ The implementation therefore keeps the **sum of token log probabilities** for ea
 For each candidate answer, the implementation computes:
 
 $$
-
-\log
-
-\sum_z
-
-\exp
-
-\left(
-
-\log P(z \mid x)
-
-+
-
-\log P(y \mid x,z)
-
-\right)
-
+\log \sum_z \exp\left(\log P(z \mid x) + \log P(y \mid x,z)\right)
 $$
 
 using `torch.logsumexp`.
@@ -162,47 +120,47 @@ The high-level pipeline is:
 
 Wikipedia sources
 
-      ↓
+      ↓
 
 raw text
 
-      ↓
+      ↓
 
 chunking
 
-      ↓
+      ↓
 
 DPR context embeddings
 
-      ↓
+      ↓
 
 query embedding
 
-      ↓
+      ↓
 
 top-k dense retrieval
 
-      ↓
+      ↓
 
 retrieved chunk text
 
-      ↓
+      ↓
 
 candidate generation
 
-      ↓
+      ↓
 
 candidate likelihood under every retrieved chunk
 
-      ↓
+      ↓
 
 RAG-Sequence marginalization
 
-      ↓
+      ↓
 
 selected answer
 
-      ↓
+      ↓
 
 evaluation
 
@@ -380,15 +338,15 @@ The strongest selected-answer token F1 came from the **100-token chunk configura
 
 ```text
 
-Chunk 10        0.106
+Chunk 10        0.106
 
-Chunk 25        0.133
+Chunk 25        0.133
 
-Chunk 50        0.129
+Chunk 50        0.129
 
-Chunk 100       0.158
+Chunk 100       0.158
 
-Generator only  0.153
+Generator only  0.153
 
 ```
 
@@ -408,15 +366,15 @@ Average generated answer length increased almost monotonically with chunk size:
 
 ```text
 
-Chunk 10        2.32 words
+Chunk 10        2.32 words
 
-Chunk 25        3.04 words
+Chunk 25        3.04 words
 
-Chunk 50        4.20 words
+Chunk 50        4.20 words
 
-Chunk 100       5.04 words
+Chunk 100       5.04 words
 
-Generator only  5.04 words
+Generator only  5.04 words
 
 ```
 
@@ -494,9 +452,9 @@ That means:
 
 ```text
 
-Candidate 0 selection rate:       65.5%
+Candidate 0 selection rate:       65.5%
 
-Candidate 0 or 1 selection rate:  83.5%
+Candidate 0 or 1 selection rate:  83.5%
 
 ```
 
