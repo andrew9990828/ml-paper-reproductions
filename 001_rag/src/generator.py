@@ -174,3 +174,23 @@ def rag_sequence(
         cad_scores.append(cad_score)
 
     return torch.argmax(torch.stack(cad_scores)).item()
+
+
+def generate_no_retrieval(query: str) -> str:
+    input_text = f"question: {query}"
+
+    tokens = tokenizer(
+        input_text,
+        return_tensors="pt",
+        truncation=True
+    )
+
+    output_ids = model.generate(
+        **tokens,
+        max_new_tokens=50
+    )
+
+    return tokenizer.decode(
+        output_ids[0],
+        skip_special_tokens=True
+    )
