@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "question": "What is a balk in baseball?",
+    "answer": "A balk is an illegal action by the pitcher while runners are on base that can result in the runners being awarded an advance.",
+    "expected_source": "balk.txt"
+  },
+  {
+    "id": 2,
+    "question": "When can a balk be called?",
+    "answer": "A balk can be called when a pitcher violates certain pitching rules while one or more runners are on base.",
+    "expected_source": "balk.txt"
+  },
+  {
+    "id": 3,
+    "question": "What is the usual penalty for a balk?",
+    "answer": "The usual penalty is that each runner is awarded one base, subject to the applicable rules of the play.",
+    "expected_source": "balk.txt"
+  },
+  {
+    "id": 4,
+    "question": "Why does baseball have the balk rule?",
+    "answer": "The balk rule prevents pitchers from illegally deceiving baserunners with motions that are not part of a legal pitch or pickoff attempt.",
+    "expected_source": "balk.txt"
+  },
+  {
+    "id": 5,
+    "question": "Can a pitcher commit a balk with no runners on base?",
+    "answer": "A balk is generally a violation involving a pitcher when runners are on base; with no runners on base, similar illegal actions are handled under other pitching rules.",
+    "expected_source": "balk.txt"
+  },
+  {
+    "id": 6,
+    "question": "What is a base on balls?",
+    "answer": "A base on balls, or walk, occurs when a batter receives four pitches called balls and is awarded first base.",
+    "expected_source": "base_on_balls.txt"
+  },
+  {
+    "id": 7,
+    "question": "How many balls give a batter a walk?",
+    "answer": "Four balls give the batter a base on balls.",
+    "expected_source": "base_on_balls.txt"
+  },
+  {
+    "id": 8,
+    "question": "What happens to the batter after receiving a base on balls?",
+    "answer": "The batter is awarded first base without needing to hit the ball.",
+    "expected_source": "base_on_balls.txt"
+  },
+  {
+    "id": 9,
+    "question": "Is a base on balls the same thing as a walk?",
+    "answer": "Yes. Base on balls is the formal term for what is commonly called a walk.",
+    "expected_source": "base_on_balls.txt"
+  },
+  {
+    "id": 10,
+    "question": "Can runners be forced to advance on a walk?",
+    "answer": "Yes. If a runner is forced because the batter is awarded first base, that runner must advance to the next base.",
+    "expected_source": "base_on_balls.txt"
+  },
+  {
+    "id": 11,
+    "question": "What is a designated hitter?",
+    "answer": "A designated hitter is a player who bats in place of another player, traditionally the pitcher, without playing that player's defensive position.",
+    "expected_source": "designated_hitter.txt"
+  },
+  {
+    "id": 12,
+    "question": "What is the main purpose of the designated hitter rule?",
+    "answer": "The designated hitter rule allows a team to use a separate offensive player to bat instead of requiring the pitcher to bat.",
+    "expected_source": "designated_hitter.txt"
+  },
+  {
+    "id": 13,
+    "question": "Does the designated hitter normally play defense for the pitcher?",
+    "answer": "No. The designated hitter is primarily used to bat in place of the pitcher and does not automatically take the pitcher's defensive role.",
+    "expected_source": "designated_hitter.txt"
+  },
+  {
+    "id": 14,
+    "question": "Which player traditionally has his place in the batting order taken by the designated hitter?",
+    "answer": "Traditionally, the designated hitter bats in place of the pitcher.",
+    "expected_source": "designated_hitter.txt"
+  },
+  {
+    "id": 15,
+    "question": "Is the designated hitter primarily an offensive or defensive role?",
+    "answer": "It is primarily an offensive role because the designated hitter is used for batting.",
+    "expected_source": "designated_hitter.txt"
+  },
+  {
+    "id": 16,
+    "question": "What is a force play?",
+    "answer": "A force play occurs when a runner is required to advance because the batter becomes a runner and occupies or is entitled to the runner's current base.",
+    "expected_source": "force_play.txt"
+  },
+  {
+    "id": 17,
+    "question": "How can a fielder record an out on a force play?",
+    "answer": "A fielder can record the out by possessing the ball and touching the forced runner's next base before the runner reaches it.",
+    "expected_source": "force_play.txt"
+  },
+  {
+    "id": 18,
+    "question": "Does a force out require tagging the runner?",
+    "answer": "No. On a force play, touching the required base with possession of the ball before the runner arrives is enough.",
+    "expected_source": "force_play.txt"
+  },
+  {
+    "id": 19,
+    "question": "Why is a runner forced to advance?",
+    "answer": "A runner is forced to advance when the batter becoming a runner removes the runner's right to remain on the current base.",
+    "expected_source": "force_play.txt"
+  },
+  {
+    "id": 20,
+    "question": "Can a force play stop being a force play during the action?",
+    "answer": "Yes. If the force is removed, such as when a trailing runner is put out, a later out may require a tag instead of merely touching the base.",
+    "expected_source": "force_play.txt"
+  },
+  {
+    "id": 21,
+    "question": "What is the infield fly rule?",
+    "answer": "The infield fly rule declares certain easily catchable fair fly balls automatic outs so fielders cannot intentionally drop them to create an unfair force-play advantage.",
+    "expected_source": "infield_fly_rule.txt"
+  },
+  {
+    "id": 22,
+    "question": "Why does the infield fly rule exist?",
+    "answer": "It exists to prevent the defense from intentionally dropping an easy fly ball to create multiple force outs against baserunners.",
+    "expected_source": "infield_fly_rule.txt"
+  },
+  {
+    "id": 23,
+    "question": "How many outs can there be for the infield fly rule to apply?",
+    "answer": "The infield fly rule can apply only when there are fewer than two outs.",
+    "expected_source": "infield_fly_rule.txt"
+  },
+  {
+    "id": 24,
+    "question": "What baserunner situations can trigger the infield fly rule?",
+    "answer": "It can apply with runners on first and second base, or with the bases loaded, when the other conditions are met.",
+    "expected_source": "infield_fly_rule.txt"
+  },
+  {
+    "id": 25,
+    "question": "Does an infield fly have to be caught for the batter to be out?",
+    "answer": "No. Once the umpire declares an infield fly, the batter is out whether or not the ball is caught.",
+    "expected_source": "infield_fly_rule.txt"
+  },
+  {
+    "id": 26,
+    "question": "What is an inning in baseball?",
+    "answer": "An inning is a division of the game in which each team normally gets one turn to bat and one turn to field.",
+    "expected_source": "inning.txt"
+  },
+  {
+    "id": 27,
+    "question": "How many halves are in a standard inning?",
+    "answer": "A standard inning has two halves: the top half and the bottom half.",
+    "expected_source": "inning.txt"
+  },
+  {
+    "id": 28,
+    "question": "Which team bats in the top half of an inning?",
+    "answer": "The visiting team bats in the top half of the inning.",
+    "expected_source": "inning.txt"
+  },
+  {
+    "id": 29,
+    "question": "Which team bats in the bottom half of an inning?",
+    "answer": "The home team bats in the bottom half of the inning.",
+    "expected_source": "inning.txt"
+  },
+  {
+    "id": 30,
+    "question": "When does a half-inning normally end?",
+    "answer": "A half-inning normally ends after the fielding team records three outs.",
+    "expected_source": "inning.txt"
+  },
+  {
+    "id": 31,
+    "question": "How many players does a baseball team normally field on defense?",
+    "answer": "A baseball team normally fields nine defensive players at a time.",
+    "expected_source": "rules_of_baseball.txt"
+  },
+  {
+    "id": 32,
+    "question": "How many outs does a team get before its turn at bat ends?",
+    "answer": "A team remains at bat until the defense records three outs in that half-inning.",
+    "expected_source": "rules_of_baseball.txt"
+  },
+  {
+    "id": 33,
+    "question": "How is a run scored in baseball?",
+    "answer": "A run is scored when a runner legally advances around the bases and reaches home plate.",
+    "expected_source": "rules_of_baseball.txt"
+  },
+  {
+    "id": 34,
+    "question": "What is the basic objective of the batting team?",
+    "answer": "The batting team tries to score runs by reaching base and advancing runners around the bases to home plate.",
+    "expected_source": "rules_of_baseball.txt"
+  },
+  {
+    "id": 35,
+    "question": "What is the basic objective of the fielding team?",
+    "answer": "The fielding team tries to prevent runs and record outs against the batting team.",
+    "expected_source": "rules_of_baseball.txt"
+  },
+  {
+    "id": 36,
+    "question": "What is the strike zone?",
+    "answer": "The strike zone is the area over home plate through which a pitch must pass at the proper height to be called a strike when the batter does not swing.",
+    "expected_source": "strike_zone.txt"
+  },
+  {
+    "id": 37,
+    "question": "Where is the strike zone located horizontally?",
+    "answer": "The strike zone is located over home plate.",
+    "expected_source": "strike_zone.txt"
+  },
+  {
+    "id": 38,
+    "question": "Can a pitch in the strike zone be called a strike if the batter does not swing?",
+    "answer": "Yes. A pitch passing through the strike zone can be called a strike even if the batter does not swing.",
+    "expected_source": "strike_zone.txt"
+  },
+  {
+    "id": 39,
+    "question": "Does the strike zone depend partly on the batter's body position?",
+    "answer": "Yes. The vertical boundaries of the strike zone are defined relative to the batter's body and batting stance.",
+    "expected_source": "strike_zone.txt"
+  },
+  {
+    "id": 40,
+    "question": "Is every pitch over home plate automatically a strike?",
+    "answer": "No. The pitch must also pass through the defined vertical boundaries of the strike zone, unless the batter swings or another strike rule applies.",
+    "expected_source": "strike_zone.txt"
+  },
+  {
+    "id": 41,
+    "question": "What is a strikeout?",
+    "answer": "A strikeout occurs when a batter accumulates three strikes during a plate appearance, subject to the rules governing the third strike.",
+    "expected_source": "strikeout.txt"
+  },
+  {
+    "id": 42,
+    "question": "How many strikes normally produce a strikeout?",
+    "answer": "Three strikes normally produce a strikeout.",
+    "expected_source": "strikeout.txt"
+  },
+  {
+    "id": 43,
+    "question": "Can a batter strike out without swinging at the final pitch?",
+    "answer": "Yes. A called third strike can produce a strikeout even if the batter does not swing.",
+    "expected_source": "strikeout.txt"
+  },
+  {
+    "id": 44,
+    "question": "Can a batter strike out by swinging and missing?",
+    "answer": "Yes. A swinging third strike can result in a strikeout.",
+    "expected_source": "strikeout.txt"
+  },
+  {
+    "id": 45,
+    "question": "Is the batter always immediately out after an uncaught third strike?",
+    "answer": "No. Under certain conditions, the batter may attempt to reach first base after a third strike is not caught.",
+    "expected_source": "strikeout.txt"
+  },
+  {
+    "id": 46,
+    "question": "What is a tag out?",
+    "answer": "A tag out occurs when a fielder with the ball legally tags a runner who is not safely touching a base.",
+    "expected_source": "tag_out.txt"
+  },
+  {
+    "id": 47,
+    "question": "What must a fielder have to make a tag out?",
+    "answer": "The fielder must have secure possession of the ball and legally touch the runner with the ball or the glove or hand holding it.",
+    "expected_source": "tag_out.txt"
+  },
+  {
+    "id": 48,
+    "question": "Can a runner be tagged out while safely touching a base?",
+    "answer": "A runner who is legally entitled to and safely touching a base is generally protected from being tagged out.",
+    "expected_source": "tag_out.txt"
+  },
+  {
+    "id": 49,
+    "question": "How is a tag out different from a force out?",
+    "answer": "A tag out requires touching the runner with the ball, while a force out can often be made by touching the required base before the forced runner arrives.",
+    "expected_source": "tag_out.txt"
+  },
+  {
+    "id": 50,
+    "question": "When is a tag commonly required instead of simply touching a base?",
+    "answer": "A tag is commonly required when the runner is not forced to advance and is caught off a base.",
+    "expected_source": "tag_out.txt"
+  }
+]

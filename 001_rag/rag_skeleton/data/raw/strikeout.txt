@@ -1,0 +1,252 @@
+In baseball or softball, a strikeout (or strike-out) occurs when a batter accumulates three strikes during a time at bat. It means the batter is out, unless the third strike is not caught by the catcher and the batter reaches first base safely as a result. A strikeout is a statistic recorded for both pitchers and batters, and is usually denoted by the letter K, or sometimes by the initialism SO. A "strikeout looking"—in which the batter does not swing and the third strike is called by the umpire—may be denoted by an inverted K (i.e. ꓘ).
+Although a strikeout suggests that the pitcher dominated the batter, the free-swinging style that generates home runs also leaves batters susceptible to striking out. Some of the most prolific home run hitters of all time (such as Adam Dunn, Mickey Mantle, Reggie Jackson, Alex Rodriguez, and Jim Thome) were notorious for striking out often. Notably, Jackson and Thome respectively hold the major league records for most and second most times struck out in a career. Conversely, Tony Gwynn who is notorious for his strikeout statistics amassing only 434 strikeouts in 10,232 plate appearances over his 20-year playing career, was also noted for his lack of home runs.
+
+
+== Rules and jargon ==
+A pitched ball is ruled a ball by the umpire if the batter did not swing at it and, in that umpire's judgement, it does not pass through the strike zone. Any pitch at which the batter swings unsuccessfully or, that in that umpire's judgement passes through the strike zone, is ruled a strike. Each ball and strike affects the count, which is incremented for each pitched ball with the exception of a foul ball on any count with two strikes. That is, a third strike may only occur by the batter swinging and missing at a pitched ball, or the pitched ball being ruled a strike by the umpire with no swing by the batter. A pitched ball that is struck by the batter with the bat on any count, and is not a foul ball or foul tip, is in play. A batter may also strike out by bunting, even if the ball is hit into foul territory.
+A pitcher receives credit for (and a batter is charged with) a strikeout on any third strike, but a batter is out only if one of the following is true:
+
+The third strike is pitched and caught in flight by the catcher (including foul tips);
+On any third strike, if a baserunner is on first and there are at most 1 out;
+The third strike is bunted foul and is not caught by a fielder.
+Thus, it is possible for a batter to strike out, but still become a runner and reach base safely if the catcher is unable to catch the third strike cleanly, and he then does not either tag out the batter or force him out at first base. In Japan, this is called furinige (振り逃げ), or "swing and escape". In Major League Baseball, it is known as an uncaught third strike. When this happens, a strikeout is recorded for both the pitcher and the batter, but no out is recorded. Because of this, a pitcher may occasionally be able to record more than three strikeouts in one inning.
+It is also possible for a strikeout to result in a fielder's choice. With the bases loaded and two strikes with two outs, the catcher drops the ball or catches it on the bounce. The batter-runner is obliged to run for first base and other base-runners are obliged to attempt to advance one base. Should the catcher field the ball and step on home plate before the runner from third base can score, then the runner from third base is forced out.
+In baseball scorekeeping, a swinging strikeout is recorded as a K or a K-S.  A strikeout looking (where the batter does not swing at a pitch that the umpire then calls strike three) is often scored with a backwards K (ꓘ), and sometimes as a K-L, CK, or Kc (the 'c' for 'called' strike).  In terms of gameplay, swinging and looking strikeouts are exactly equivalent; the difference in notation is simply to record this aspect of the time at bat. Official MLB records began to differentiate swinging and looking strikeouts during the 1987 season. Despite the scorekeeping custom of using "K" for strikeout, "SO" is the official abbreviation used by Major League Baseball.
+"K" is still commonly used by fans and enthusiasts for purposes other than official record-keeping. One baseball ritual involves fans attaching a succession of small "K" signs to the nearest railing, one added for every strikeout notched by the home team's pitcher, following a tradition started by New York Mets fans in honor of "Dr. K", Dwight Gooden. The "K" may be reversed (ꓘ) in cases where the batter strikes out looking, just as it would appear on a scorecard.  Virtually every televised display of a high-strikeout major league game will include a shot of a fan's strikeout display, and if the pitcher continues to strike out batters, the display may be shown following every strikeout.
+The use of "K" for a strikeout was invented by Henry Chadwick, a newspaper journalist who is widely credited as the originator of the box score and the baseball scorecard. As is true in much of baseball, both the box score and scorecard remain largely unchanged to this day. Chadwick decided to use "K", the last letter in "struck", since the letter "S" was used for "sacrifice". Chadwick was responsible for several other scorekeeping conventions, including the use of numbers to designate player positions.
+Those unaware of Chadwick's contributions have speculated that "K" was derived from the last name of 19th-century pitcher Matt Kilroy. If not for the evidence supporting Chadwick's earlier use of "K", this explanation would be reasonable. Kilroy raised the prominence of the strikeout, setting an all-time single-season record of 513 strikeouts in 1886, only two years after overhand pitching was permitted. His record, however, is limited to its era since the pitcher's mound was only 50 feet (15 m) from the batter during that season. It was moved to its current distance of 60'6" in 1893. The modern record (1901–present) is 383 strikeouts, held by Nolan Ryan, one better than Sandy Koufax's 382.
+For 55 years, Walter Johnson held the career strikeout record, at 3,508. That record fell in 1982 to Nolan Ryan, who was then passed by Steve Carlton, before Ryan took the career strikeout record for good at 5,714.
+
+
+== History ==
+Early rules stated that "three balls being struck at and missed and the last one caught, is a hand-out; if not caught is considered fair, and the striker bound to run." The modern rule has changed very little. The addition of the called strike came in 1858.
+In 1880, the rules were changed to specify that a third strike had to be caught on the fly. A later adjustment to the dropped third strike rule specified that a batter is automatically out when there are fewer than two out and a runner on first base. In 1887, the number of strikes for an out was changed to four, but it was promptly changed back to three the next season.
+The rule that a third strike (only) must be caught originates in the concept that a third strike is not an automatic out, but rather puts the ball in play. The rule was described at least as early as Johann Christoph Friedrich GutsMuths' 1793 book Gymnastik für die Jugend (Gymnastics for Youth) and has remained in effect since. After the third strike, the ball being in play, the batter (now a runner) must be put out. This is almost always done immediately after the strike is made, by the catcher (putouts on strikeouts are still credited to the catcher), but if the ball is not caught on the fly by the catcher, the batter/runner must be put out by the same means as any other runner who puts a ball in play which is not caught on the fly—by soaking (hitting the runner with a ball thrown by a fielder, now long obsolete), or by being tagged out, or by leaving the baseline, or by force out at first base.
+
+
+== Slang ==
+
+A swinging strikeout is often called a whiff, while a batter who is struck out by a fastball is often said to have been blown away. A batter who strikes out on a swung third strike is said to have fanned (as in a fanning motion), whereas if he takes a called third strike it is called a punch out (describing the plate umpire's dramatic punching motion on a called third strike).  However, sometimes these words are used as general synonyms for a strikeout, irrespective of whether it was swinging or looking.  The announcer Ernie Harwell called a batter who took a called third strike, usually on the other team, "out for excessive window-shopping" or having "stood like the house by the side of the road".
+On a called third strike, it is said that the batter was caught looking, or that he looked at a strike. Typically, a called third strike can be somewhat more embarrassing for a batter, as it shows that he was either fooled by the pitcher or, even worse, had a moment of hesitation.
+For example, Carlos Beltrán was caught looking at strike 3 to end the 2006 NLCS, and the season, for the New York Mets. Sports commentators have also been known to refer to it as browsing if the batter did not move his bat at all.
+A pitcher is said to striking out the side when he retires all three batters in a half-inning by striking them out. This term is also used when all three outs were caused by strikeouts, regardless of how other batters in the inning fared. If a pitcher strikes out three batters on nine pitches, he is said to have pitched an immaculate inning. A batter that takes the third strike looking, especially on a breaking pitch like a slider or a curveball that appears to be out of the strike zone but drops in before he can get the bat off his shoulders, can be said to have been frozen.
+In slang, when a batter strikes out three times in a game, he is said to have completed a hat trick. If he strikes out four times, it is called a golden sombrero. He receives a platinum sombrero if he strikes out five times, and this dishonor is also known as the Olympic rings.
+Striking out six times is a rare occurrence, which in the history of major league play has only occurred in games that went to extra innings, with Sam Horn of the Baltimore Orioles being one of the few to do this. The slugger's then-teammate, pitcher Mike Flanagan, told reporters after that 1991 event that six strikeouts would thereafter be known as a Horn. He added that if anyone ever strikes out seven times in one game, it will be a Horn of Plenty.
+
+Some pitchers who specialize in strikeouts have acquired nicknames including the letter "K". Dwight Gooden was known as "Doctor K" (alluding to basketball star Julius Erving a.k.a. "Dr. J"). Francisco Rodríguez is known as "K-Rod". Roger Clemens has taken the "K" name to an extreme by naming his four sons Koby, Kory, Kacy, and Kody. Tim Lincecum is nicknamed "The Say 'K' Kid", alluding to former Giants player Willie Mays who was called "The Say Hey Kid". Daisuke Matsuzaka is known as "Dice-K", a term that was used as a pronunciation guide for his name when he first arrived in MLB.
+Hall of Fame strikeout artist Sandy Koufax of the Los Angeles Dodgers coincidentally has a last name starting with "K", and in his call of the pitcher's perfect game in 1965, Dodgers announcer Vin Scully commented that Koufax's name "will always remind you of strikeouts".
+
+
+== More than three strikeouts in an inning ==
+
+If a third strike is not caught cleanly by the catcher, it is still recorded as a strikeout for both the pitcher and the batter, but the batter becomes a runner and the play is still alive. (This is not true when first base is occupied and there are fewer than two outs; see Uncaught third strike.) The runner may take first base unless the defense tags or throws him out. Therefore, a pitcher can achieve more than three strikeouts in one standard half-inning.
+Prior to 1960, the event occurred only seven times. The first Major League player to be credited with the feat was Ed "Cannonball" Crane of the New York Giants on October 4, 1888. It has occurred in Major League Baseball 76 times. Chuck Finley accomplished the feat on May 12 and August 15, 1999, with the Anaheim Angels and again on April 16, 2000, with the Cleveland Indians. Pete Richert of the Los Angeles Dodgers is the only pitcher to do it in his MLB debut (April 12, 1962, against the Cincinnati Reds). Steve Delabar struck out four men in the 10th inning, and recorded the win in a 3–2 victory over the Chicago White Sox on August 13, 2012, making him the first pitcher in major league history to record four strikeouts in an extra inning.
+For a list of pitchers who have achieved more than three strikeouts in an inning, including the most recent pitcher to do so, see List of Major League Baseball single-inning strikeout leaders.
+Five strikeouts in one inning have never occurred in a regulation Major League Baseball game. They have occurred at least six times at the minor league level. John Perkovitsh of Wisconsin Rapids did so against Oshkosh in a Wisconsin State League game on May 17, 1946, while Ron Necciai of Bristol in the Appalachian League accomplished the feat against Johnson City on May 17, 1952. Kelly Wunsch of the Beloit Brewers fanned five in the third inning on April 15, 1994. Mike Schultz of the Lancaster JetHawks struck out five batters in one inning on July 16, 2004, and Garrett Bauer of the Rockford RiverHawks struck out five batters in one inning on July 1, 2008. Most recently, Malcolm Van Buren of the Burlington Royals struck out five in the seventh inning of a game on July 31, 2019. That this has never happened in Major League play reflects the rarity of a pitcher getting a strikeout with an uncaught third strike, but also that,
+
+A second uncaught third strike happens with two outs, whether or not a runner is on first base and that the batter safely reaches first base, or
+that with fewer than two outs, the first baserunner, who reached base on an uncaught third strike, must have scored or be on a base other than first before another strikeout with a dropped 3rd strike can occur. Alternately, one or two normal strikeouts must be recorded before the second runner can possibly reach first base on a dropped 3rd strike; only when the second batter-runner reaches base can the 5th strikeout be completed.
+Houston Astros pitcher Joe Niekro struck out five Minnesota Twins batters in the first inning of an exhibition spring training game on April 7, 1976, in New Orleans.  Niekro's catcher, Cliff Johnson, was charged with five passed balls in the inning. Exhibition games are not recorded in official statistics.
+
+
+== Major League Baseball records ==
+
+
+=== Pitchers ===
+
+
+==== Career total ====
+
+The top 20 Major League Baseball career strikeout leaders (active players in bold) (since 1901):
+
+Nolan Ryan – 5,714
+Randy Johnson – 4,875
+Roger Clemens – 4,672
+Steve Carlton – 4,136
+Bert Blyleven – 3,701
+Tom Seaver – 3,640
+Don Sutton – 3,574
+Justin Verlander – 3,554
+Max Scherzer – 3,535
+Gaylord Perry – 3,534
+Walter Johnson – 3,509
+Greg Maddux – 3,371
+Phil Niekro – 3,342
+Ferguson Jenkins – 3,192
+Pedro Martínez – 3,154
+Bob Gibson – 3,117
+Curt Schilling – 3,116
+CC Sabathia – 3,093
+John Smoltz – 3,084
+Clayton Kershaw – 3,052
+Active pitchers with over 2,000 strikeouts (as August 30, 2026):
+
+Justin Verlander – 3,554
+Max Scherzer – 3,535
+Chris Sale – 2,756
+Gerrit Cole – 2,356
+Kevin Gausman – 2,110
+Yu Darvish – 2,075
+Sonny Gray – 2,053
+Aaron Nola – 2,029
+Jacob deGrom – 2,010
+
+
+==== Strikeouts per 9 innings ====
+The top 10 Major League Baseball career strikeout-per-nine innings leaders (since 1900, minimum 1,000 IP):
+
+Blake Snell - 11.21
+Dylan Cease – 11.17
+Chris Sale – 11.13
+Freddy Peralta – 10.83
+Jacob deGrom – 10.82
+Randy Johnson – 10.60
+Stephen Strasburg – 10.54
+Max Scherzer – 10.53
+Robbie Ray – 10.52
+Yu Darvish – 10.50
+The top 5 Major League Baseball single-season strikeout-per-nine innings leaders (since 1900, minimum 1.0 IP per team game):
+
+Shane Bieber, 2020 – 14.19
+Gerrit Cole, 2019 – 13.81
+Jacob deGrom, 2020 – 13.76
+Spencer Strider, 2023 - 13.54
+Dylan Cease, 2026 – 13.54
+
+
+==== Season ====
+
+The top 10 Major League Baseball single-season strikeout totals (since 1900):
+
+The top 10 Major League Baseball single-season strikeout totals (all time):
+
+Season (by team)
+
+
+==== Game ====
+
+Progression of major league strikeout record for one nine-inning game, regular season (partial listing):
+
+18 – Dupee Shaw, Boston Reds (UA), July 19, 1884. Matched by:
+Henry Porter, Milwaukee Brewers (UA), October 3, 1884.
+Modern era:
+
+16 – Rube Waddell, July 29, 1908
+18 – Bob Feller, October 2, 1938. Matched by:
+Sandy Koufax, August 31, 1959
+Koufax again, April 24, 1962
+Don Wilson, July 14, 1968
+Ron Guidry, June 17, 1978.
+19 – Steve Carlton, September 15, 1969. Matched by:
+Tom Seaver, April 22, 1970
+Nolan Ryan, August 12, 1974.
+David Cone, October 16, 1991
+20 – Roger Clemens, April 29, 1986. Matched by:
+Clemens again, September 18, 1996
+Kerry Wood, May 6, 1998
+Randy Johnson, May 8, 2001 (the first nine innings of an extra-inning game)
+Max Scherzer, May 11, 2016
+Note: Tom Cheney struck out 21 batters overall, in a 16-inning game, September 12, 1962. He had 13 strikeouts through the first nine innings.
+Progression of strikeout record, World Series game:
+
+10 – 1903 (first modern Series), Game 1, Deacon Phillippe
+11 – 1903, Game 2, Bill Dinneen
+12 – 1906, Game 3, Ed Walsh
+13 – 1929, Game 1, Howard Ehmke
+14 – 1953, Game 3, Carl Erskine
+15 – 1963, Game 1, Sandy Koufax
+17 – 1968, Game 1, Bob Gibson
+Progression of major league strikeout record for a relief pitcher, regular season (partial listing):
+
+15 – Walter Johnson, July 25, 1915
+16 – Randy Johnson, July 18, 2001
+
+
+=== Batters ===
+
+
+==== Career ====
+
+The top 15 Major League Baseball career strikeout leaders (as of August 30, 2026):
+
+Reggie Jackson – 2,597
+Jim Thome – 2,548
+Adam Dunn – 2,379
+Sammy Sosa – 2,306
+Alex Rodriguez – 2,287
+Miguel Cabrera – 2,105
+Giancarlo Stanton – 2,088
+Paul Goldschmidt – 2,062
+Andrés Galarraga – 2,003
+Justin Upton - 1,971
+Eugenio Suárez – 1,961
+José Canseco – 1,942
+Willie Stargell – 1,937
+Mark Reynolds – 1,927
+Nelson Cruz – 1,916
+Active batters with over 1,300 K's (as of August 30, 2026):
+
+Giancarlo Stanton – 2,088
+Paul Goldschmidt – 2,062
+Eugenio Suárez – 1,961
+Andrew McCutchen – 1,915
+Freddie Freeman – 1,856
+Mike Trout – 1,797
+Bryce Harper – 1,776
+Kyle Schwarber – 1,721
+Christian Yelich – 1,656
+Nick Castellanos – 1,651
+Marcell Ozuna – 1,570
+Manny Machado – 1,558
+Carlos Santana – 1,548
+Aaron Judge – 1,441
+Javier Báez – 1,434
+Salvador Perez – 1,409
+Marcus Semien – 1,402
+George Springer – 1,395
+Dansby Swanson – 1,392
+Matt Olson – 1,388
+Teoscar Hernández – 1,386
+Xander Bogaerts – 1,360
+Ian Happ – 1,345
+Matt Chapman – 1,341
+Trevor Story – 1,309
+Starling Marte – 1,308
+Willy Adames – 1,300
+
+
+==== Season ====
+Single-season strikeout records (batters):
+
+Season (by team)
+
+
+=== Game (teams combined) ===
+Progression of record for total strikeouts by both teams in one game (partial listing):
+
+33 – San Francisco Giants at Philadelphia Phillies (14 innings), June 22, 1958. Matched by:
+33 – Washington Senators at Cleveland Indians (19 innings), June 14, 1963
+36 – San Francisco Giants at New York Mets (23 innings), May 31, 1964
+43 – California Angels at Oakland Athletics (20 innings), July 9, 1971
+48 – New York Yankees at Chicago Cubs (18 innings), May 7, 2017
+
+
+== See also ==
+
+Baseball statistics
+List of Major League Baseball annual strikeout leaders
+List of Major League Baseball single-game strikeout leaders
+List of Major League Baseball pitchers who have thrown an immaculate inning
+
+
+== References ==
+
+
+== Further reading ==
+Carig, Marc (June 25, 2024). "Missing Bats: A special series in The Athletic". The Athletic. Retrieved August 11, 2024.
+
+
+== External links ==
+Career Leaders and Records for Strikeouts (batters)
+Career Leaders and Records for Strikeouts (pitchers)
+Four Strikeouts in 1 Inning

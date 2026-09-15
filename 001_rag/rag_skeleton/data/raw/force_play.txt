@@ -1,0 +1,37 @@
+In baseball, a force play or force out occurs when a runner is required to advance to a base which a player on the opposing team has already reached while in possession of the ball.
+There are two situations in which a force play occurs: One, a batter becomes a runner and gets put out because an opponent with possession of the ball reaches first base before the batter can get there. Two, a runner is forced to vacate their starting base (usually because another runner on their team is attempting to advance to that base), meaning that the runner must attempt to advance to the next base, but is forced out because an opponent with possession of the ball reached that base before they did.
+Baserunners are forced to attempt to advance to the next base whenever a teammate is forced to advance to their own base. Because of this, a runner at first base is always forced to attempt to advance to second base when the batter becomes a runner, and runners at second or third base are forced only when all bases preceding their time-of-pitch base are occupied by other base-runners and the batter becomes a runner. However, runners are no longer forced to advance to the next base if any runner behind them on the base-paths is put out.
+
+
+== Explanation ==
+A forced runner's "force base" is the next base beyond his time-of-pitch base. Any play in which there is a successful attempt made by fielders to put a forced runner out is a force play.
+The forced runners can be compared to bumper cars. If, with a runner on first, the batter hits a ground ball, the batter may run to first, and since two runners are not allowed to stay on one base at one time, the runner who was on first to begin with is now bumped by the advancing batter over to second. If there already was a runner on second as well, that runner is now bumped over to third, and if the bases are loaded (i.e., there are runners on all three bases) then the runner on third must attempt to reach home plate. If a runner is bumped over to the next base by the advancing batter or by another runner who was bumped by the advancing batter, then that runner is considered to have been forced to advance to the next base. If however, with a runner on third, for example, the batter hits a ground ball, the batter may run to first, but the runner on third, not having been bumped by the batter, is not forced to advance and can stay where they are if they elect to do so.
+Force plays, or force outs, are one of the two ways to get a runner out on a ground ball. For a fielder to get a forced runner out, he must, while possessing a batted fair ball, either (1) touch the base to which the forced runner must advance before the forced runner does so, or (2) tag that runner before the runner touches that base. For example, with a runner on first, the batter hits a ground ball to the second baseman. The runner on first is forced to second. The second baseman can record an out by touching second base while possessing the ball or by tagging the runner before the runner touches second base.
+
+
+=== Removing the force ===
+A force on a runner is "removed" when the batter or a following runner (in other words, any runner behind him on the base-paths) is put out. This most often happens on fly outs—on such, the batter-runner is out, and the other runner(s) must return to their time-of-pitch base, known as tagging up. It also occasionally happens when a sharply hit ground ball is fielded by the first baseman, who then quickly steps on first base to put out the batter-runner. This removes the requirement that the runner already on first must advance to second base; he cannot be forced out by a defensive player holding the ball while touching second base, and the runner can try to escape from a rundown by returning to first base.
+Force outs may also result from neighborhood plays.
+
+
+== Scoring on force outs ==
+No run can be scored during the same continuous playing action as a force out for the third out, even if a runner reaches home plate before the third out is recorded. As a result, on a batted ball with two outs, fielders will nearly always ignore a runner trying to score, attempting instead to force out the batter or another runner. For example, suppose there are runners on first and third with one out. The batter hits a ground ball to the second baseman. The second baseman, seeing a forced runner on first heading his way, retrieves the ball and steps on second to get him out to force him out for the second out of the inning. In this scenario, if the runner on third had run home and touched home plate, his run would count if the batter reached first base safely. But suppose the same play happened with two outs. The second baseman, seeing the forced runner on first heading his way, retrieves the ball and steps on second to get him out on the force play for the third out of the inning. If the runner on third had meanwhile run home and touched home plate, that run would not have counted. Note that the second baseman, tagging such a forced runner coming from first for the third out, also prevents scoring by the speedy runner from third as this tag is considered a force out (any out, tag, or touching the force base, on a forced runner is a force out).
+An appeal play may also be a force play; for example, with runners on first and third bases and two out, the batter gets a hit but the runner from first misses second base on the way to third. After a proper appeal, this runner will be called out. This is a force out because the runner was out for failing to touch a base to which he was forced; this force out is the third out, and thus the run does not score. However, most appeals are not forced plays, because they usually do not involve a forced runner.
+
+
+== Tagging up is not equivalent to being forced ==
+It is not a force out when a runner is put out while trying to tag up after a caught fly ball. Because this out is similar to a true force out in that the runner can be put out by a fielder possessing the ball at the base that the runner needs to reach, there is a widespread misconception that this out is a force out. But it is not, which means the run would count if it scored before the third out is made on a different runner trying to tag up.
+
+
+== See also ==
+Fielder's choice
+Double play
+Fourth out
+Run out, a similar event in cricket
+
+
+== References ==
+
+
+== External links ==
+Baseball Almanac Rules.
