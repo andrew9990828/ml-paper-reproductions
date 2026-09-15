@@ -47,20 +47,20 @@ $$
 
 where:
 
-* $x$ is the input question
-* $z$ is a retrieved document or chunk
-* $y$ is the complete generated answer sequence
+- $x$ is the input question
+- $z$ is a retrieved document or chunk
+- $y$ is the complete generated answer sequence
 
 For a generated sequence:
 
 $$
-P(y \mid x,z) = \prod_{i=1}^{N} P(y_i \mid x,z,y_{<i})
+P(y \mid x,z) = \prod_{i=1}^{N} P(y_i \mid x,z,y_{1:i-1})
 $$
 
 In log-space, that becomes:
 
 $$
-\log P(y \mid x,z) = \sum_{i=1}^{N} \log P(y_i \mid x,z,y_{<i})
+\log P(y \mid x,z) = \sum_{i=1}^{N} \log P(y_i \mid x,z,y_{1:i-1})
 $$
 
 The implementation therefore keeps the **sum of token log probabilities** for each complete candidate sequence rather than length-normalizing them.
