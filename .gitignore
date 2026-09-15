@@ -21,11 +21,17 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Model / cache files
-*.pt
+# Model checkpoints / local training artifacts
 *.pth
 *.ckpt
 
-# Large local data
-data/
+# Local caches
 cache/
+
+# Hugging Face cache
+.huggingface/
+hf_cache/
+
+# Temporary / generated junk
+*.tmp
+*.log

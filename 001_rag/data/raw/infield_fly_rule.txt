@@ -1,0 +1,102 @@
+The infield fly rule is a rule of baseball and softball that treats certain fly balls as though caught, before the ball is caught, even if the infielder fails to catch it or drops it on purpose. The umpire's declaration of an infield fly means that the batter is out (and all force plays are removed) regardless of whether the ball is caught. The rule exists solely to prevent the defense from executing a double play or triple play by deliberately failing to catch a ball that an infielder could catch with ordinary effort.
+
+
+== Reasoning ==
+A ball batted into the air subjects baserunners to a dilemma. If the ball is caught, they must return to their original base; if it is not caught, the batter becomes a runner and existing runners are forced to advance to the next base if all bases between them and the (now running) batter are occupied. Baserunners study the fielder and advance only far enough from the base to ensure that they can return safely if the ball is caught. If a presumed catch becomes a non-catch, forced runners must run forward instead of back. Intentionally failing to execute an easy catch gives the defense an advantage that the infield fly rule exists to remove. The officiating rationale that ultimately led to the rule began in the 1860s, due to the requirement to tag up on a base, and was formalized in 1874.
+
+
+== Rule ==
+The infield fly rule is explained in the Official Baseball Rules in two places:
+
+Definitions of terms: Infield Fly
+Rule 5.09 (Batter is out)
+The rule applies only when there are fewer than two outs, and there is a force play at third base (which means there are runners at first and second base, or the bases are loaded). The rule does not apply on line drives nor on bunt attempts. (See History, below.)
+When the rule is in effect, if a fair fly ball is in play, and in the umpire's judgment is catchable by an infielder with ordinary effort, the umpire shall call "infield fly" (or more often, "infield fly, batter's out" or "infield fly if fair" when there is a chance of the ball drifting foul). The batter will be out regardless of whether the ball is actually caught. Umpires typically raise the right arm straight up, index finger pointing up and call to signal the rule is in effect.
+If "infield fly" is called and the fly ball is caught, it is treated exactly as an ordinary caught fly ball; the batter is out, there is no force, and the runners must tag up. On the other hand, if "infield fly" is called and the ball lands fair without being caught, the batter is still out, there is still no force, but the runners are not required to tag up. In either case, the ball is live, and the runners may advance on the play, at their own risk.
+An infield fly may be declared by any umpire on the field.
+
+
+=== "Umpire's judgment" ===
+The infield fly rule is a judgment call, as the rule states that "The judgment of the umpire must govern". The rule directs the umpire to declare an infield fly immediately on determining that the play meets the criteria described above, solely based on the umpire's discretion. Since different umpires may have different definitions of what constitutes "ordinary effort," the rule may be applied differently depending on the umpire and game conditions.
+
+
+=== "Catchable by an infielder" ===
+A fair fly ball that could be caught by an infielder with ordinary effort is covered by the rule, whether or not it is in the infield, and whether or not an infielder catches it, or even attempts to catch it. For example, if an infielder retreats to the outfield in an effort to catch a fly ball, the infield fly rule may be invoked because the ball could have been caught by the infielder. Similarly, infield fly may also be called if an outfielder runs into the infield to catch a fly ball, if it could have been caught by an infielder with ordinary effort. It may be helpful to think of it as the "infielder fly rule". Specifically, the rule states an infield fly call should be determined by "whether the ball could ordinarily have been handled by an infielder, not by some arbitrary limitation such as the grass, or the base lines. The umpire must rule also that a ball is an infield fly, even if handled by an outfielder, if, in the umpire's judgment, the ball could have been as easily handled by an infielder."
+
+
+=== "Ordinary effort" ===
+The term "ordinary effort" considers all circumstances, including weather, lighting, positioning of the defense, and the abilities of the players involved in the play. A fly ball catchable with ordinary effort in Major League Baseball might not be in a junior high school game, due to the ability of the players involved.
+
+
+=== Foul balls ===
+If the fly ball is near the foul lines, the umpire is to declare "infield fly, if fair". If the ball is not caught and ends up foul (including if it lands fair and then rolls foul before passing first or third base without being touched by a fielder), the infield fly call is canceled, and the play is treated as an ordinary foul ball. In contrast, if the ball lands foul and then rolls fair before passing first or third base without being touched, the infield fly takes effect and the batter is out.
+
+
+=== Statistics ===
+Declarations of the infield fly rule are not included in the statistical summary of a baseball game and are not a separate category in player statistics.
+A fielder who misplays an infield fly is not charged with an error because the batter is out through the infield fly rule. In fact, the fielder who should have caught an infield fly earns a putout. But a fielder who fails to touch an infield fly that then rolls foul may be charged with an error for letting the ball roll foul; the batter is not out, and the misplay prolongs the batter's time at bat.
+
+
+== History ==
+The rule was introduced in 1895 by the National League in response to infielders intentionally dropping pop-ups to get multiple outs by forcing out the runners on base, who were pinned near their bases while the ball was in the air. At that time, the rule only applied with one man out.
+The existing rule came into effect in 1901. It was amended in 1904 to exclude line drives, and in 1920 to also exclude bunt attempts.
+
+
+=== 2008 World Series ===
+In the fifth game of the 2008 World Series between the Tampa Bay Rays and Philadelphia Phillies at Citizens Bank Park in Philadelphia, Pedro Feliz of the Phillies hit a pop-up to the right side of the infield with runners on first and second and one out, in strong rain and swirling winds, and the infield fly rule was not invoked. Umpiring crew chief Tim Tschida explained that "The infield fly rule requires the umpires' judgment to determine whether or not a ball can be caught with ordinary effort, and that includes wind" and that the umpires' determination was that in this case there was no infielder who could make the play with "ordinary effort". The ball was caught for the second out of the inning, and the runners did not stray far from their bases.  
+
+
+=== 2012 National League Wild Card Game ===
+In the eighth inning of the 2012 National League Wild Card Game between the St. Louis Cardinals and the Atlanta Braves, Andrelton Simmons of the Braves hit a pop-up into shallow left field with one out and men on first and second bases.  Cardinals shortstop Pete Kozma, who was playing in normal position, ran out to left field to catch the ball while left fielder Matt Holliday, who was playing very deep in left, ran in to catch it as well. Although Kozma initially called to catch the ball, as the ball came down, he suddenly moved out of the way and the ball fell between him and Holliday. While it initially appeared that Simmons (the batter) had safely reached first base and the Braves had the bases loaded with one out, Simmons was called out because left field umpire Sam Holbrook had called "infield fly" just before the ball hit the ground, and the Braves now had runners at second and third with two outs, instead of bases loaded with one out. The Braves did not score in the inning, and the Cardinals went on to win the game, 6–3, eliminating the Braves from the postseason.
+After the call, angry Braves fans began throwing plastic bottles and other debris onto the field, causing the game to be delayed for nearly 20 minutes. The Braves continued playing under an official protest from their manager, but shortly after the game, Joe Torre, MLB executive vice president for baseball operations, denied the protest, citing umpire's judgment. Torre made the ruling immediately following the game (waiving the normal 24-hour review period) due to the importance of the game and the quick turnaround time before the next playoff game.  The ball landed 225 feet (69 m) from home plate.  Between 2009 and 2012, there were six infield-fly rulings on balls that weren't caught, and the longest was measured at 178 feet (54 m),  47 feet (14 m) less than the ball Simmons hit.
+
+
+== Additional details ==
+
+
+=== Umpires' signals ===
+As the infield fly rule is a special case, umpires signal one another at the start of an at-bat to remind one another that the game situation puts the rule into effect. A typical signal is to touch the brim of the cap so as to show the number of outs.
+
+
+=== Second base unoccupied ===
+The infield fly rule is not in effect if there is no runner on second base. Provided the batter-runner runs to first base, the greatest benefit the defense could achieve by intentionally letting the fly ball drop untouched is to force out the runner at second rather than the batter, resulting in a runner on first base either way. However, if the batter is significantly slower than the runner, the defense may elect to let the ball drop untouched and achieve the force play, replacing the runner at first base with the batter.
+Risks for the defense are that the uncaught ball may roll away from the fielder, and any runner on third base can try to score but has the option of remaining on his base.
+If the batter-runner gives up on the play, the defense can achieve outs at second base and first base by deliberately letting the ball drop untouched.
+
+
+=== Intentional drop rule ===
+A related rule called the intentional drop rule applies even when second base is unoccupied (so long as first-base is occupied), and applies even when the batted ball is a line drive or a bunt that could be caught on the fly. This rule likewise prevents a fielder from deliberately dropping a ball and thereby achieving a double or triple play. If an umpire invokes this rule, the drop is ruled a catch, the ball is dead, and no baserunner may advance. The rule is not invoked when a fielder plays a ball on a bounce that might have been caught on the fly, or a fielder lets the ball fall to the ground without catching the palm of the mitt, or, in the judgment of the umpire, the ball was mishandled and not cleanly caught.
+
+
+=== Runner advancement ===
+For the runners, an infield fly is little different from an ordinary fly ball. If an infield fly is caught, the runners must retouch their original bases ("tag up") after the catch before attempting to advance. If an infield fly is not caught, no tag up is required and the runners may advance at their own risk. The only difference is that the umpire's declaration that the batter is out removes force plays and gives runners the option of staying on the base.
+The infield fly rule states that runners may advance "after the ball is touched". This rule governs the tag up if the infield fly is caught. The runner does not need to wait on base until the fielder achieves full control of the ball. There is no need to tag up at any time if the ball is dropped. There is no concept of tagging up under the intentional drop rule, as base advances are not allowed.
+
+
+=== Hit runners ===
+A runner hit by an infield fly while standing on a base is also protected from being declared out due to interference, unless this interference is deemed intentional (which appeared in the rules in 1940).
+
+
+=== Rule not declared ===
+The rulebook definition of Infield Fly says the umpire "shall immediately declare 'Infield Fly' for the benefit of the runners." However, sometimes they do not. As in the 2008 World Series game, there may be doubt as to whether the ball was catchable by an infielder with ordinary effort. If not called, the infield fly rule is not in effect. The same definition includes a comment that "The infield fly is in no sense to be considered an appeal play." This suggests that the batter cannot be ruled out retroactively to settle a debate that occurs after the play ends. However, in Major League Baseball, the umpires are likely to correct their mistake if it leads to an unfair double or triple play.
+
+
+== Batter passing another runner ==
+In adult baseball, a fly ball usually reaches the fielder before the batter can run the 90 feet to first base. However, in youth baseball, the distance between bases is shorter, and in some youth leagues, the infield fly rule is not in effect.
+In this case, a baserunning gambit can be used to avoid a double or triple play. A fast batter may reach first base before the pop fly reaches the fielder. If the fielder fails to catch the ball, then the batter runs toward second base while the runner originally on first base remains there. Under Rule 7.08(h), the batter is out for passing a preceding runner, and under Rule 7.08(c), this out removes the force so that other runners are able to remain on their bases.
+
+
+== Legal theory ==
+The infield fly rule was the subject of an article in a U.S. law journal. William S. Stevens was a law student in 1975 when he anonymously published "The Common Law Origins of the Infield Fly Rule" in the University of Pennsylvania Law Review. The article was humorous but also insightful on how common law related to codified regulation of behavior. It has been cited in numerous legal decisions and in subsequent literature.
+
+
+== See also ==
+ Baseball portal
+
+
+== References ==
+
+
+== External links ==
+"Explaining the infield fly rule" at MLB.com
+"The Infield Fly Rule in Baseball Explained: Implications and Origins"

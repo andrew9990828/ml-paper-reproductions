@@ -1,0 +1,29 @@
+In baseball and softball, a tag out, sometimes just called a tag, is a play in which a baserunner is out because a fielder touches him with the ball or with the hand or glove holding the ball, while the ball is live and the runner is in jeopardy of being put out (usually when he is not touching a base).
+A baserunner is in jeopardy when any of the following is true:
+
+He is not touching a base (excluding overrunning of first base or when advancing to an awarded base, such as on a base on balls).
+He is touching a base he has been forced to vacate because the batter became a baserunner (a forced runner).
+He has not tagged up on a caught fly ball.
+He failed to touch a base when he last passed it or failed to touch them in order.
+He is touching a base that a preceding baserunner is also touching (excludes touching a base to which he was forced to advance, in which case the preceding baserunner is in jeopardy unless also forced to advance to an awarded base).
+A tag is therefore the most common way to retire baserunners who are not in danger of being forced out, though a forced runner may also be tagged out in lieu of stepping on the forced base. Additionally, a tag out can be used on an appeal play.
+
+
+== Overview ==
+
+Runners attempting to advance are sometimes thrown out, which means that a fielder throws the ball to someone covering the base, who then tags the runner before he touches the base. A runner who leads off a base (advances before the pitch is thrown) too far might be picked off; that is, the pitcher throws to a fielder covering the base, who then tags the runner out.
+When a runner is tagged out, a further advanced runner who had been forced to advance no longer has to do so. For example, when a sharply hit ball is caught on one hop by the first baseman, he might immediately tag out the runner at first who is forced to advance to second, but when this is done, a runner already at second is no longer forced to advance to third base. The result of such a tag is called "removing the force".
+When an attempt to tag a baserunner has been initiated by a fielder in possession of the ball, then an imaginary base path is formed, which is 3 feet (0.91 m) wide, extending from the runner to the base that the runner is trying to reach safely. If the runner steps outside of the base path, then he is automatically out. However, if a defensive player tags the runner with his glove and the baseball is in his other hand, or with his free hand while the baseball is in his glove, then the runner is not out. Also, if the fielder drops the ball after the tag, the runner is safe.
+
+
+== History ==
+In historical variations of baseball, runners could be retired if the ball was thrown directly at them while they were not on a base, a practice referred to as "soaking" or "plugging". The 1845 Knickerbocker Rules were one of the major early codifications of baseball that banned soaking and mandated tagging, instead, allowing for harder baseballs to be used.
+
+
+== See also ==
+Rundown
+Run out - the cricket equivalent
+Tag (game)
+
+
+== References ==
