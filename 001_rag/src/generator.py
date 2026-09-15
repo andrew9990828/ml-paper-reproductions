@@ -7,21 +7,28 @@
 # File: generator.py
 #
 # Description:
-# This file includes our generator BART.
+# This file includes our seq2seq generator.
 # There's a handful of objectives we want to hit here:
 #   1. Take top-k scores + indices from retriever
 #   2. Use indices to recover actual chunk text
 #   3. Pair each retrieved chunk with the query
-#   4. Feed those into BART
+#   4. Feed those into the generator
 #   5. Generate candidate answer sequence(s)
 #   6. Use retrieval relevance + generation likelihood for RAG-Sequence
 #
-# Later, I loaded this repo on my actual PC and added CUDA optimization
-# with the help of gpt-5.6-sol. If I ran the unoptimized code on my CPU
-# on my laptop, it would've taken 15-30hrs. While I only have a NVIDIA 2070
-# GeForce RTX, it will take only 1-3hrs on my PC.
-# This isn't my strongsuit, so I'm not going to sit here and act like I'm
-# a pytorch CUDA wizard when it's my first real exposure to a real inference issue.
+# The original RAG paper used BART as its generator and fine-tuned the
+# system for downstream QA. I originally used raw facebook/bart-large,
+# but without that fine-tuning it mostly copied the question/context
+# instead of actually answering the question.
+#
+# For this simplified reproduction, I use FLAN-T5-base as the seq2seq
+# generator. It already understands instructions like "answer this
+# question using this context", while the RAG-Sequence logic around it
+# stays the same.
+#
+# I later moved inference onto my GPU and added batching with help from
+# gpt-5.6-sol. This was my first real exposure to CUDA/inference
+# optimization, so I'm not going to pretend I wrote all of that alone.
 #
 # Paper:
 # "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
@@ -29,27 +36,29 @@
 # https://arxiv.org/abs/2005.11401
 # ============================================================
 
-from transformers import BartTokenizer, BartForConditionalGeneration
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 import json
 
+
+MODEL_NAME = "google/flan-t5-base"
 
 # Use the GPU if we have one, otherwise just fall back to the CPU.
 device = torch.device(
     "cuda" if torch.cuda.is_available() else "cpu"
 )
 
-# Keep the tokenization on the CPU
-tokenizer = BartTokenizer.from_pretrained(
-    "facebook/bart-large"
+# Keep tokenization on the CPU.
+tokenizer = AutoTokenizer.from_pretrained(
+    MODEL_NAME
 )
 
-# Throw the ~400M parameter model on the GPU.
-model = BartForConditionalGeneration.from_pretrained(
-    "facebook/bart-large"
+# Move the generator model onto the GPU.
+model = AutoModelForSeq2SeqLM.from_pretrained(
+    MODEL_NAME
 ).to(device)
 
-# BART weights are normally FP32, so about 4 bytes per number.
+# Model weights are normally FP32, so about 4 bytes per number.
 # For inference we can use FP16 instead, cutting that roughly in half.
 # This is NOT quantization. We're still using floating point numbers.
 if device.type == "cuda":
@@ -57,6 +66,29 @@ if device.type == "cuda":
 
 # disable training mode
 model.eval()
+
+
+def build_prompt(
+    query: str,
+    chunk: str | None = None
+    ) -> str:
+    """
+    Builds the prompt we give the seq2seq generator.
+    """
+
+    if chunk is None:
+        return (
+            f"Answer the question.\n"
+            f"Question: {query}\n"
+            f"Answer:"
+        )
+
+    return (
+        f"Answer the question using the context.\n"
+        f"Question: {query}\n"
+        f"Context: {chunk}\n"
+        f"Answer:"
+    )
 
 
 def retrieve_chunked_text(
@@ -90,15 +122,15 @@ def retrieve_chunked_text(
 #
 # 1. Retriever gives us top-k chunks + how relevant each chunk was.
 #
-# 2. BART uses query + retrieved chunks to propose possible answers.
+# 2. Generator uses query + retrieved chunks to propose possible answers.
 #
-# 3. For ONE possible answer, ask BART:
+# 3. For ONE possible answer, ask the generator:
 #       "How likely is this SAME answer given chunk 1?"
 #       "How likely is this SAME answer given chunk 2?"
 #       ...
 #
 # 4. For each chunk:
-#       chunk relevance * BART answer likelihood
+#       chunk relevance * generator answer likelihood
 #
 #    Then add all of those together:
 #
@@ -113,7 +145,7 @@ def retrieve_chunked_text(
 
 
 # generate_candidates takes the query + chunk and generates an output for that chunk
-# We do this for all chunks we retrived, returning a list of BARTs output.
+# We do this for all chunks we retrieved, returning a list of generator outputs.
 @torch.inference_mode()
 def generate_candidates(
     query: str,
@@ -123,12 +155,13 @@ def generate_candidates(
     input_texts = []
 
     for chunk in retrieved_chunks:
-        input_text = f"question: {query} context: {chunk}"
-        input_texts.append(input_text)
+        input_texts.append(
+            build_prompt(query, chunk)
+        )
 
-    # Instead of sending all 10 chunks through BART one at a time,
+    # Instead of sending all 10 chunks through the model one at a time,
     # make one batch and let the GPU do the annoying math all at once.
-    # padding=True just makes every row the same length so it fits in one tensor.
+    # padding=True makes every row the same length so it fits in one tensor.
     tokens = tokenizer(
         input_texts,
         return_tensors="pt",
@@ -151,7 +184,7 @@ def generate_candidates(
 
 
 # We return one log probability for this SAME candidate against every chunk.
-# Instead of doing 10 BART calls, we make 10 pairs and batch all the math.
+# Instead of doing 10 model calls, we make 10 pairs and batch all the math.
 @torch.inference_mode()
 def candidate_log_probs(
     query: str,
@@ -162,8 +195,9 @@ def candidate_log_probs(
     input_texts = []
 
     for chunk in chunks:
-        input_text = f"question: {query} context: {chunk}"
-        input_texts.append(input_text)
+        input_texts.append(
+            build_prompt(query, chunk)
+        )
 
     # All 10 different question + chunk inputs go in one batch.
     input_tokens = tokenizer(
@@ -184,7 +218,7 @@ def candidate_log_probs(
         truncation=True
     ).to(device)
 
-    # Padding is fake data, so -100 tells BART to ignore those spots.
+    # Padding is fake data, so -100 tells the model to ignore those spots.
     labels = candidate_tokens.input_ids.clone()
     labels[labels == tokenizer.pad_token_id] = -100
 
@@ -193,7 +227,7 @@ def candidate_log_probs(
         labels=labels
     )
 
-    # BART gives us scores over the whole vocabulary for every output token.
+    # The model gives us scores over the whole vocabulary for every output token.
     # Turn those scores into log probabilities.
     log_probs = torch.log_softmax(
         outputs.logits.float(),
@@ -209,7 +243,7 @@ def candidate_log_probs(
     safe_labels = labels.clone()
     safe_labels[~mask] = 0
 
-    # For every token position, grab the log probability BART gave
+    # For every token position, grab the log probability the model gave
     # to the token that was ACTUALLY in our candidate.
     token_log_probs = log_probs.gather(
         dim=-1,
@@ -238,7 +272,7 @@ def rag_sequence(
     ) -> int:
 
     # Turn our raw retriever scores into log probabilities.
-    # Keep this as a tensor now because we can do the math on all 10 at once.
+    # Keep this as a tensor because we can do the math on all 10 at once.
     retriever_log_probs = torch.log_softmax(
         retriever_scores.float(),
         dim=-1
@@ -248,7 +282,7 @@ def rag_sequence(
 
     for candidate in candidates:
 
-        # This used to loop through all 10 chunks and call BART 10 times.
+        # This used to loop through all 10 chunks and call the model 10 times.
         # Now this ONE call gives us all 10 generation scores.
         generation_log_probs = candidate_log_probs(
             query,
@@ -285,7 +319,7 @@ def rag_sequence(
 @torch.inference_mode()
 def generate_no_retrieval(query: str) -> str:
 
-    input_text = f"question: {query}"
+    input_text = build_prompt(query)
 
     tokens = tokenizer(
         input_text,
