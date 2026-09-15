@@ -528,11 +528,11 @@ Top-K Retrieval          ✅
 BART Candidate Generation ✅
 RAG-Sequence Scoring     ✅
 Evaluation Dataset       ✅
-End-to-End Pipeline      🚧
-Automated Evaluation     ⬜
-Experiments              ⬜
-Graphs / Analysis        ⬜
-Final Write-Up           ⬜
+End-to-End Pipeline      ✅
+Automated Evaluation     ✅
+Experiments              ✅
+Graphs / Analysis        ✅
+Final Write-Up           ✅
 ```
 
 ---
