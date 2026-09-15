@@ -4,10 +4,8 @@
 
 This project is a simplified reproduction of the core **RAG-Sequence** idea from:
 
-> Patrick Lewis et al.  
-
-> *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*  
-
+> Patrick Lewis et al.
+> *Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*
 > 2020
 
 The goal was **not** to reproduce the paper's benchmark numbers or training setup exactly.
@@ -18,30 +16,23 @@ The corpus is built from baseball Wikipedia pages, and the evaluation set contai
 
 The final experiment compares four chunk sizes:
 
-- 10 tokens
-
-- 25 tokens
-
-- 50 tokens
-
-- 100 tokens
+* 10 tokens
+* 25 tokens
+* 50 tokens
+* 100 tokens
 
 Each RAG run retrieves the top 10 chunks. A generator-only baseline is also included.
 
 That gives:
 
-- 50 questions × 4 RAG chunk sizes = 200 RAG outputs
-
-- 50 generator-only outputs
-
-- **250 total experiment outputs**
+* 50 questions × 4 RAG chunk sizes = 200 RAG outputs
+* 50 generator-only outputs
+* **250 total experiment outputs**
 
 The final results are stored in:
 
 ```text
-
 data/eval/results.json
-
 ```
 
 ---
@@ -56,11 +47,9 @@ $$
 
 where:
 
-- $x$ is the input question
-
-- $z$ is a retrieved document or chunk
-
-- $y$ is the complete generated answer sequence
+* $x$ is the input question
+* $z$ is a retrieved document or chunk
+* $y$ is the complete generated answer sequence
 
 For a generated sequence:
 
@@ -96,17 +85,12 @@ The original paper trained the retriever and BART generator together for downstr
 
 Important differences include:
 
-- a small custom baseball corpus instead of the paper's full Wikipedia setup
-
-- a custom 50-question baseball evaluation set
-
-- pretrained DPR-based retrieval rather than jointly training the retriever
-
-- FLAN-T5-large as the final standalone seq2seq generator
-
-- one candidate generated per retrieved chunk followed by explicit RAG-Sequence-style reranking
-
-- no attempt to reproduce the paper's published benchmark scores
+* a small custom baseball corpus instead of the paper's full Wikipedia setup
+* a custom 50-question baseball evaluation set
+* pretrained DPR-based retrieval rather than jointly training the retriever
+* FLAN-T5-large as the final standalone seq2seq generator
+* one candidate generated per retrieved chunk followed by explicit RAG-Sequence-style reranking
+* no attempt to reproduce the paper's published benchmark scores
 
 Because of those differences, this repository should be read as a **small, readable RAG-Sequence reproduction and experiment skeleton**, not as an exact recreation of the original paper.
 
@@ -117,53 +101,29 @@ Because of those differences, this repository should be read as a **small, reada
 The high-level pipeline is:
 
 ```text
-
 Wikipedia sources
-
       ↓
-
 raw text
-
       ↓
-
 chunking
-
       ↓
-
 DPR context embeddings
-
       ↓
-
 query embedding
-
       ↓
-
 top-k dense retrieval
-
       ↓
-
 retrieved chunk text
-
       ↓
-
 candidate generation
-
       ↓
-
 candidate likelihood under every retrieved chunk
-
       ↓
-
 RAG-Sequence marginalization
-
       ↓
-
 selected answer
-
       ↓
-
 evaluation
-
 ```
 
 The repository keeps these stages separated so the corpus, chunking strategy, retriever, generator, top-k value, and evaluation set can all be replaced independently.
@@ -181,9 +141,7 @@ I then tested FLAN-T5-base. It worked as a standalone instruction-following gene
 The final experiment uses:
 
 ```text
-
 google/flan-t5-large
-
 ```
 
 FLAN-T5-large is not the generator from the original paper, but it behaves reliably as a standalone conditional generator and allowed the surrounding RAG-Sequence logic to be tested directly.
@@ -197,33 +155,21 @@ I also explored extracting the BART generator from the released `facebook/rag-se
 For each of the 50 questions:
 
 1. Embed the query.
-
 2. Retrieve the top 10 chunks.
-
 3. Recover the matching chunk text.
-
 4. Generate one candidate answer from each retrieved chunk.
-
 5. Score every candidate against every retrieved chunk.
-
 6. Combine generation likelihood with retrieval probability.
-
 7. Marginalize across retrieved chunks using the RAG-Sequence objective.
-
 8. Select the highest-scoring candidate.
 
 This process is repeated for chunk sizes:
 
 ```text
-
 10
-
 25
-
 50
-
 100
-
 ```
 
 The same 50 questions are also passed directly to the generator without retrieval to create the generator-only baseline.
@@ -235,9 +181,7 @@ The same 50 questions are also passed directly to the generator without retrieva
 The evaluation harness lives in:
 
 ```text
-
 evaluation_scripts/
-
 ```
 
 The first version of the evaluation and plotting harness was delegated to **GPT-5.6 Sol**, then reviewed and run against the completed experiment outputs.
@@ -246,19 +190,13 @@ The evaluation intentionally reports multiple metrics rather than pretending one
 
 The main metrics are:
 
-- normalized Exact Match
-
-- token F1
-
-- answer containment
-
-- generated answer length
-
-- oracle candidate token F1
-
-- selected-vs-oracle token F1 gap
-
-- selected candidate index distribution
+* normalized Exact Match
+* token F1
+* answer containment
+* generated answer length
+* oracle candidate token F1
+* selected-vs-oracle token F1 gap
+* selected candidate index distribution
 
 I do **not** report retrieval Recall@10 because the evaluation set does not contain ground-truth supporting passage IDs.
 
@@ -269,59 +207,43 @@ I do **not** report retrieval Recall@10 because the evaluation set does not cont
 The evaluation loaded:
 
 ```text
-
 250 experiment rows
-
 ```
 
 and all integrity checks passed.
 
 This verifies that:
 
-- the expected experiment rows are present
-
-- RAG rows contain the expected top-k fields
-
-- candidate indices are valid
-
-- the selected generated answer matches the recorded candidate index
-
-- there are no duplicate experiment keys
+* the expected experiment rows are present
+* RAG rows contain the expected top-k fields
+* candidate indices are valid
+* the selected generated answer matches the recorded candidate index
+* there are no duplicate experiment keys
 
 ---
 
 ## Quantitative Results
 
-| Configuration | N | Exact Match | Token F1 | Containment | Mean answer words | Oracle candidate F1 | Oracle gap |
-
-|---|---:|---:|---:|---:|---:|---:|---:|
-
-| Chunk 10 | 50 | 0.000 | 0.106 | 0.420 | 2.32 | 0.294 | 0.189 |
-
-| Chunk 25 | 50 | 0.000 | 0.133 | 0.380 | 3.04 | 0.298 | 0.165 |
-
-| Chunk 50 | 50 | 0.000 | 0.129 | 0.320 | 4.20 | 0.319 | 0.190 |
-
-| Chunk 100 | 50 | 0.000 | **0.158** | 0.320 | 5.04 | **0.338** | 0.180 |
-
-| Generator only | 50 | 0.000 | 0.153 | 0.320 | 5.04 | — | — |
+| Configuration  |  N | Exact Match |  Token F1 | Containment | Mean answer words | Oracle candidate F1 | Oracle gap |
+| -------------- | -: | ----------: | --------: | ----------: | ----------------: | ------------------: | ---------: |
+| Chunk 10       | 50 |       0.000 |     0.106 |       0.420 |              2.32 |               0.294 |      0.189 |
+| Chunk 25       | 50 |       0.000 |     0.133 |       0.380 |              3.04 |               0.298 |      0.165 |
+| Chunk 50       | 50 |       0.000 |     0.129 |       0.320 |              4.20 |               0.319 |      0.190 |
+| Chunk 100      | 50 |       0.000 | **0.158** |       0.320 |              5.04 |           **0.338** |      0.180 |
+| Generator only | 50 |       0.000 |     0.153 |       0.320 |              5.04 |                   — |          — |
 
 Exact Match is zero across all configurations because the reference answers are generally complete explanatory sentences while the generator often returns concise answers.
 
 For example, a prediction such as:
 
 ```text
-
 the pitcher
-
 ```
 
 may be semantically correct for a reference such as:
 
 ```text
-
 Traditionally, the designated hitter bats in place of the pitcher.
-
 ```
 
 but still receives zero Exact Match.
@@ -337,17 +259,11 @@ For that reason, Exact Match should not be interpreted as the main quality metri
 The strongest selected-answer token F1 came from the **100-token chunk configuration**:
 
 ```text
-
 Chunk 10        0.106
-
 Chunk 25        0.133
-
 Chunk 50        0.129
-
 Chunk 100       0.158
-
 Generator only  0.153
-
 ```
 
 The 100-token RAG configuration slightly exceeded the generator-only baseline on token F1.
@@ -365,17 +281,11 @@ What it does show is that the retrieval pipeline was capable of improving the fi
 Average generated answer length increased almost monotonically with chunk size:
 
 ```text
-
 Chunk 10        2.32 words
-
 Chunk 25        3.04 words
-
 Chunk 50        4.20 words
-
 Chunk 100       5.04 words
-
 Generator only  5.04 words
-
 ```
 
 The 10-token chunks frequently split definitions and explanations into fragments.
@@ -397,31 +307,22 @@ This suggests that **very small chunks were starving the generator of usable con
 For every chunk size, the best candidate already generated by the system was substantially better than the candidate ultimately selected by the RAG-Sequence scorer.
 
 | Chunk size | Selected F1 | Best available candidate F1 |
-
-|---|---:|---:|
-
-| 10 | 0.106 | 0.294 |
-
-| 25 | 0.133 | 0.298 |
-
-| 50 | 0.129 | 0.319 |
-
-| 100 | 0.158 | 0.338 |
+| ---------- | ----------: | --------------------------: |
+| 10         |       0.106 |                       0.294 |
+| 25         |       0.133 |                       0.298 |
+| 50         |       0.129 |                       0.319 |
+| 100        |       0.158 |                       0.338 |
 
 At chunk size 100, the average selected answer reached only:
 
 ```text
-
 0.158 token F1
-
 ```
 
 while the best candidate already present among the ten generated candidates reached:
 
 ```text
-
 0.338 token F1
-
 ```
 
 This is the clearest finding from the experiment.
@@ -444,18 +345,14 @@ The oracle gap therefore exposes a limitation of **this simplified candidate pro
 
 Across the 200 RAG runs:
 
-- candidate 0 was selected **131 / 200 times**
-
-- candidate 0 or candidate 1 was selected **167 / 200 times**
+* candidate 0 was selected **131 / 200 times**
+* candidate 0 or candidate 1 was selected **167 / 200 times**
 
 That means:
 
 ```text
-
 Candidate 0 selection rate:       65.5%
-
 Candidate 0 or 1 selection rate:  83.5%
-
 ```
 
 Candidate 0 corresponds to the candidate generated from the highest-ranked retrieved chunk.
@@ -465,11 +362,8 @@ This shows that the final selection is heavily concentrated around candidates ge
 There are multiple possible reasons for this:
 
 1. the top retrieved document often really is the best context
-
 2. its candidate is naturally highly probable under the same document that generated it
-
 3. the retrieval prior gives that document more weight
-
 4. the candidate proposal process and final RAG score are therefore partially coupled
 
 This makes retrieval ranking extremely influential in the simplified implementation.
@@ -505,17 +399,13 @@ The oracle-candidate analysis suggests that this third category is especially im
 The script:
 
 ```text
-
 evaluation_scripts/build_review_sheet.py
-
 ```
 
 creates:
 
 ```text
-
 data/eval/failure_review.csv
-
 ```
 
 and sorts cases by oracle gap so the most interesting selection failures can be manually reviewed first.
@@ -539,17 +429,13 @@ Larger chunks gave the generator more complete context and produced longer, high
 Chunk 100 achieved the strongest selected-answer token F1:
 
 ```text
-
 0.158
-
 ```
 
 which slightly exceeded the generator-only baseline:
 
 ```text
-
 0.153
-
 ```
 
 ### 3. Candidate generation was better than final selection
@@ -557,17 +443,13 @@ which slightly exceeded the generator-only baseline:
 The 100-token configuration had an oracle candidate F1 of:
 
 ```text
-
 0.338
-
 ```
 
 compared with only:
 
 ```text
-
 0.158
-
 ```
 
 for the selected candidate.
@@ -639,19 +521,12 @@ It is meant to be a readable skeleton that makes the architecture visible.
 Someone can replace:
 
 ```text
-
 baseball corpus
-
 DPR retriever
-
 FLAN-T5 generator
-
 chunk sizes
-
 top-k
-
 evaluation questions
-
 ```
 
 without replacing the whole project.
@@ -659,21 +534,13 @@ without replacing the whole project.
 The main stages stay visible:
 
 ```text
-
 chunk
-
 embed
-
 retrieve
-
 generate
-
 score
-
 marginalize
-
 evaluate
-
 ```
 
 That makes it useful for learning what RAG is actually doing instead of hiding everything behind a framework call.
@@ -682,15 +549,11 @@ The failures are part of that value.
 
 This project exposed several behaviors that would have been much harder to notice from a high-level RAG library:
 
-- tiny chunks destroying useful context
-
-- retrieval rank dominating candidate selection
-
-- good candidates being generated but rejected
-
-- generator choice strongly affecting the entire pipeline
-
-- the difference between retrieval failure, generation failure, and selection failure
+* tiny chunks destroying useful context
+* retrieval rank dominating candidate selection
+* good candidates being generated but rejected
+* generator choice strongly affecting the entire pipeline
+* the difference between retrieval failure, generation failure, and selection failure
 
 ---
 
@@ -699,49 +562,33 @@ This project exposed several behaviors that would have been much harder to notic
 From the `001_rag` directory:
 
 ```bash
-
 python evaluation_scripts/evaluate_results.py
-
 python evaluation_scripts/plot_results.py
-
 python evaluation_scripts/build_review_sheet.py
-
 ```
 
 The evaluation writes:
 
 ```text
-
 data/eval/metrics/
-
 ├── metrics_summary.json
-
 └── per_question_metrics.json
-
 ```
 
 The plotting script writes:
 
 ```text
-
 data/eval/plots/
-
 ├── answer_length_by_configuration.png
-
 ├── candidate_index_histogram.png
-
 ├── selected_vs_oracle_f1.png
-
 └── token_f1_by_configuration.png
-
 ```
 
 The review script writes:
 
 ```text
-
 data/eval/failure_review.csv
-
 ```
 
 ---
