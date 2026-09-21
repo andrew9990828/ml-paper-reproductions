@@ -35,3 +35,6 @@ hf_cache/
 # Temporary / generated junk
 *.tmp
 *.log
+
+# Ignore massive dataset
+002_lora/gpt_data/tiny_stories.txt
