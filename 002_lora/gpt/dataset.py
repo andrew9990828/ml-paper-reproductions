@@ -21,7 +21,7 @@
 #   6. Dataloader stacks many pairs into batches
 #   7. Train.py feeds those batches into the model
 # ============================================================
-
+import io
 import tiktoken
 import torch
 
@@ -34,8 +34,26 @@ example_text = "One day, a little girl named Lily found a needle in her room. " 
 # For my gpt, I used the gpt2 tokenizer
 tokenizer = tiktoken.get_encoding("gpt2")
 
+# len = 58 toks
+token_ids = tokenizer.encode(example_text)
+
+def get_token_window(
+    token_ids: list[int],
+    start: int,
+    context_length: int,
+) -> tuple[list[int], list[int]]:
+    """Return an input window and its one-token-shifted target."""
+
+    end = start + context_length
+    x = token_ids[start:end]
+    y = token_ids[start+1:end+1]
+
+    return x, y
+
+
 if __name__ == "__main__":
     ids = tokenizer.encode(example_text)
-    print(ids)
+    print(len(ids))
     words = tokenizer.decode(ids)
     print(words)
+    print(get_token_window(ids, 2, 8))
