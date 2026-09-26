@@ -2,7 +2,7 @@
 # My GPT from scratch - Dataset file
 #
 # Author: Andrew Bieber <andrewbieber.work@gmail.com>
-# Last Updated: September 22, 2026
+# Last Updated: September 25, 2026
 #
 # File: dataset.py
 #
@@ -24,6 +24,7 @@
 import io
 import tiktoken
 import torch
+from torch.utils.data import DataLoader, Dataset
 
 # This is just to run tests as we go through the build
 example_text = "One day, a little girl named Lily found a needle in her room. " \
@@ -37,11 +38,7 @@ tokenizer = tiktoken.get_encoding("gpt2")
 # len = 58 toks
 token_ids = tokenizer.encode(example_text)
 
-def get_token_window(
-    token_ids: list[int],
-    start: int,
-    context_length: int,
-) -> tuple[list[int], list[int]]:
+def get_token_window(token_ids: list[int], start: int, context_length: int) -> tuple[list[int], list[int]]:
     """Return an input window and its one-token-shifted target."""
 
     end = start + context_length
@@ -51,9 +48,44 @@ def get_token_window(
     return x, y
 
 
+class GPTDataSet(Dataset):
+    """
+    This class returns one (x, y) pair using the base Dataset class provided
+    by torch documentation. You can find the dataset documentation at this
+    link: https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial
+    """
+    def __init__(self, text: str, tokenizer: tiktoken, context_length: int, stride: int):
+        self.token_ids = tokenizer.encode(text)
+        self.context_length = context_length
+        self.stride = stride
+
+    # Count the number of possible windows given by the text corpus
+    # and stride & context_length.
+    def __len__(self) -> int:
+        num_tokens = len(self.token_ids)
+        len_count = 0
+        idx = 0
+
+        while num_tokens > idx + self.context_length:
+            len_count += 1
+            idx += self.stride
+            
+        return len_count
+
+    # Just grab a token window based on stride using our helper
+    def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
+        base, target = get_token_window(self.token_ids, idx * self.stride, self.context_length)
+        return torch.tensor(base, dtype=torch.long), torch.tensor(target, dtype=torch.long)
+
+
+
 if __name__ == "__main__":
-    ids = tokenizer.encode(example_text)
-    print(len(ids))
-    words = tokenizer.decode(ids)
-    print(words)
-    print(get_token_window(ids, 2, 8))
+    # ids = tokenizer.encode(example_text)
+    # print(len(ids))
+    # words = tokenizer.decode(ids)
+    # print(words)
+    # print(get_token_window(ids, 2, 8))
+    test_dataset = GPTDataSet(example_text, tokenizer, 8, 2)
+    data = test_dataset[15]
+    base, targets = data
+    print(base, targets)
