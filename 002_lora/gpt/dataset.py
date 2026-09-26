@@ -81,28 +81,6 @@ class GPTDataSet(Dataset):
         return torch.tensor(base, dtype=torch.long), torch.tensor(target, dtype=torch.long)
 
 
-
-# def dataloader(text: str, 
-#     tokenizer: tiktoken, 
-#     context_length: int, 
-#     stride: int, 
-#     batch_size: int
-# ) -> tuple[torch.Tensor, torch.Tensor]: 
-#     dataset = GPTDataSet(text, tokenizer, context_length, stride)
-#     idx = 0
-#     base_batches = torch.empty(batch_size,)
-#     target_batches = torch.empty(batch_size)
-
-#     while idx + context_length < len(dataset):
-#         base, targets = dataset[idx]
-#         base_batches = torch.cat((base_batches, base), dim=1)
-#         target_batches = torch.cat((base_batches, base), dim=1)
-#         idx += stride
-
-#     return base_batches, target_batches
-
-
-
 if __name__ == "__main__":
     ids = tokenizer.encode(example_text)
     print(len(ids))
