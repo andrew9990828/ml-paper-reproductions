@@ -21,7 +21,6 @@
 #   6. Dataloader stacks many pairs into batches
 #   7. Train.py feeds those batches into the model
 # ============================================================
-import io
 import tiktoken
 import torch
 from torch.utils.data import DataLoader, Dataset
@@ -38,7 +37,11 @@ tokenizer = tiktoken.get_encoding("gpt2")
 # len = 58 toks
 token_ids = tokenizer.encode(example_text)
 
-def get_token_window(token_ids: list[int], start: int, context_length: int) -> tuple[list[int], list[int]]:
+def get_token_window(
+    token_ids: list[int], 
+    start: int, 
+    context_length: int
+) -> tuple[list[int], list[int]]:
     """Return an input window and its one-token-shifted target."""
 
     end = start + context_length
@@ -79,13 +82,36 @@ class GPTDataSet(Dataset):
 
 
 
+# def dataloader(text: str, 
+#     tokenizer: tiktoken, 
+#     context_length: int, 
+#     stride: int, 
+#     batch_size: int
+# ) -> tuple[torch.Tensor, torch.Tensor]: 
+#     dataset = GPTDataSet(text, tokenizer, context_length, stride)
+#     idx = 0
+#     base_batches = torch.empty(batch_size,)
+#     target_batches = torch.empty(batch_size)
+
+#     while idx + context_length < len(dataset):
+#         base, targets = dataset[idx]
+#         base_batches = torch.cat((base_batches, base), dim=1)
+#         target_batches = torch.cat((base_batches, base), dim=1)
+#         idx += stride
+
+#     return base_batches, target_batches
+
+
+
 if __name__ == "__main__":
-    # ids = tokenizer.encode(example_text)
-    # print(len(ids))
-    # words = tokenizer.decode(ids)
-    # print(words)
-    # print(get_token_window(ids, 2, 8))
+    ids = tokenizer.encode(example_text)
+    print(len(ids))
+    words = tokenizer.decode(ids)
+    print(words)
+    print(get_token_window(ids, 2, 8))
     test_dataset = GPTDataSet(example_text, tokenizer, 8, 2)
     data = test_dataset[15]
     base, targets = data
+    dataloader = DataLoader(GPTDataSet(example_text, tokenizer, 8, 2), batch_size=8, shuffle=True)
+    print(dataloader)
     print(base, targets)
