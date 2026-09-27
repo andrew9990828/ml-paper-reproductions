@@ -325,10 +325,9 @@ The objective is to understand the model well enough that future transformer arc
 
 - [x] TinyStories dataset downloaded
 - [x] GPT-2 tokenizer selected
-- [ ] Dataset implementation
-- [ ] Input / target sequence generation
-- [ ] Dataloader
-- [ ] Single-head causal attention
+- [x] Dataset implementation
+- [x] Input / target sequence generation
+- [x] Dataloader
 - [ ] Multi-head causal attention
 - [ ] Feed-forward network
 - [ ] Transformer block
