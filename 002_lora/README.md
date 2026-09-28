@@ -328,7 +328,7 @@ The objective is to understand the model well enough that future transformer arc
 - [x] Dataset implementation
 - [x] Input / target sequence generation
 - [x] Dataloader
-- [ ] Multi-head causal attention
+- [x] Multi-head causal attention
 - [ ] Feed-forward network
 - [ ] Transformer block
 - [ ] Full GPT model
