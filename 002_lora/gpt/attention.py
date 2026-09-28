@@ -30,6 +30,10 @@ class MultiHeadAttention(nn.Module):
         self.embed_dim = 384
         self.num_heads = 6
 
+        # .1 is the standard choice
+        self.dropout = nn.Dropout(p=.1)
+     
+
         assert self.embed_dim % self.num_heads == 0, "embed_dim % num_heads isn't equal to 0. Check initialization."
 
         self.head_dim = self.embed_dim // self.num_heads
@@ -57,11 +61,30 @@ class MultiHeadAttention(nn.Module):
         v = v.transpose(2, 1)                   # [B, H, T, D]
 
         # Scores = (q @ k.T) / sqrt(D)
-        k = k.transpose(-1, -2)     # [B, H, T, D] -> [B, H, D, T]
-        scores = (q @ k) / D**0.5   # [B, H, T, T]
-        return scores
+        k_t = k.transpose(-1, -2)     # [B, H, T, D] -> [B, H, D, T]
+        scores = (q @ k_t) / D**0.5   # [B, H, T, T]
 
+        # Causual mask prevents the model from cheating
+        mask = torch.triu(torch.ones(T, T), diagonal=1)                 # [T, T]
+        masked_scores = scores.masked_fill(mask.bool(), -torch.inf)
 
+        # After the mask, get probabilities calculated per row. Each row has all tokens add to 1.
+        attention = torch.softmax(masked_scores, dim=-1)
+
+        # Dropout is a core regularization technique to prevent overfitting
+        attention = self.dropout(attention)
+
+        # Now since we have probabilities, get context vectors by grabbing their values
+        context_vectors = attention @ v                                 # [B, H, T, D]
+
+        # Math to project our context vectors across our 2 batches of 6 heads into a single output projection.
+        context_vectors = context_vectors.transpose(dim0=1, dim1=-2)    # [B, T, H, D]
+        context_vectors = torch.flatten(context_vectors, start_dim=-2, end_dim=-1)  # [B, T, H, D] -> [B, T, C]
+        proj_context_vectors = self.output_proj(context_vectors)                    # [B, T, C] @ [C, C] -> [B, T, C]
+
+        return proj_context_vectors     # -> [B, T, C]
+
+    
 if __name__ == "__main__":
     B = 2
     T = 8
@@ -71,5 +94,3 @@ if __name__ == "__main__":
 
     attention = MultiHeadAttention()
     output = attention(x)
-    print(output)
-    print(output.shape)
