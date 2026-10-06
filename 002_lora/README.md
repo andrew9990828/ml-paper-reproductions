@@ -329,9 +329,9 @@ The objective is to understand the model well enough that future transformer arc
 - [x] Input / target sequence generation
 - [x] Dataloader
 - [x] Multi-head causal attention
-- [ ] Feed-forward network
-- [ ] Transformer block
-- [ ] Full GPT model
+- [x] Feed-forward network
+- [x] Transformer block
+- [x] Full GPT model
 - [ ] Training loop
 - [ ] Model checkpointing
 - [ ] Autoregressive generation
