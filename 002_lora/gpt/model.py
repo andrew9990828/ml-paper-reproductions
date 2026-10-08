@@ -76,7 +76,7 @@ class MLP(nn.Module):
 
 
 class TransformerBlock(nn.Module):
-    def __init__(self, configs: dict):
+    def __init__(self, configs=GPT_CONFIGS):
         super().__init__()
         self.embed_dim = configs["embed_dim"]
         self.num_heads = configs["num_heads"]
