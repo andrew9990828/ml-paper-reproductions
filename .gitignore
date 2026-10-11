@@ -37,4 +37,4 @@ hf_cache/
 *.log
 
 # Ignore massive dataset
-002_lora/gpt_data/tiny_stories.txt
+002_lora/gpt_data/
