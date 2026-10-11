@@ -58,7 +58,7 @@ class GPTDataSet(Dataset):
     link: https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial
     """
     def __init__(self, text: str, tokenizer: tiktoken, context_length: int, stride: int):
-        self.token_ids = tokenizer.encode(text)
+        self.token_ids = tokenizer.encode(text, allowed_special={"<|endoftext|>"})
         self.context_length = context_length
         self.stride = stride
 
