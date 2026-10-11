@@ -134,6 +134,9 @@ class AndrewsGPT(nn.Module):
             self.vocab_size, 
             bias=False
         )
+        # Tie the LM head weights to the token embedding weights
+        # Both now reference the same learnable parameters
+        self.language_modeling_head.weight = self.embed_table.weight 
 
     def forward(self, x: torch.Tensor): 
         B, T= x.shape   # [B, T]
