@@ -1,9 +1,8 @@
-
 # =======================================================================
 # My GPT from scratch - Training the model
 #
 # Author: Andrew Bieber <andrewbieber.work@gmail.com>
-# Last Updated: October 10, 2026
+# Last Updated: November 2nd, 2026
 #
 # File: train.py
 #
@@ -67,20 +66,20 @@ print(f"Training on: {device}")
 
 
 # Globals we can configure to train how we like
-epochs = 1
-max_steps = 2000
-batch_size = 1
+epochs = 100
+max_steps = 200_000  # Total limit across all epochs
+batch_size = 16
 learning_rate = 0.0003
 
 # How much data we want to use for this training experiment
-train_stories = 10_000
-val_stories = 200
+train_stories = 100_000
+val_stories = 1_000
 
 # How often we want to log, validate, and save the model
 log_every = 20
-validate_every = 100
-save_every = 250
-val_batches = 10
+validate_every = 500
+save_every = 1_000
+val_batches = 50
 
 loss_function = nn.CrossEntropyLoss()
 
@@ -299,7 +298,7 @@ def save_checkpoint(epoch, step):
 
 run = wandb.init(
     project="andrews-gpt-from-scratch",
-    name="gpt-initial-pretraining",
+    name="gpt-rosie-pretraining",
     config={
         **GPT_CONFIGS,
         "epochs": epochs,

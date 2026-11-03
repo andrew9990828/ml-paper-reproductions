@@ -2,7 +2,7 @@
 # My GPT from scratch - The model
 #
 # Author: Andrew Bieber <andrewbieber.work@gmail.com>
-# Last Updated: October 5, 2026
+# Last Updated: November 2nd, 2026
 #
 # File: model.py
 #
@@ -127,16 +127,21 @@ class AndrewsGPT(nn.Module):
         self.blocks = nn.ModuleList(
             [TransformerBlock(configs) for _ in range(self.num_layers)]
         )
+
         self.embed_table = nn.Embedding(self.vocab_size, self.embed_dim)
         self.pos_table = nn.Embedding(self.context_length, self.embed_dim)
         self.language_modeling_head = nn.Linear(
-            self.embed_dim, 
-            self.vocab_size, 
+            self.embed_dim,
+            self.vocab_size,
             bias=False
         )
-        # Tie the LM head weights to the token embedding weights
-        # Both now reference the same learnable parameters
-        self.language_modeling_head.weight = self.embed_table.weight 
+
+        # Initialize embeddings with smaller random values
+        nn.init.normal_(self.embed_table.weight, mean=0.0, std=0.02)
+        nn.init.normal_(self.pos_table.weight, mean=0.0, std=0.02)
+
+        # Tie output weights to token embedding weights
+        self.language_modeling_head.weight = self.embed_table.weight
 
     def forward(self, x: torch.Tensor): 
         B, T= x.shape   # [B, T]

@@ -38,3 +38,6 @@ hf_cache/
 
 # Ignore massive dataset
 002_lora/gpt_data/
+# Generated training checkpoints and W&B logs
+/002_lora/checkpoints/
+/002_lora/wandb/
