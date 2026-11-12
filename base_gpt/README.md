@@ -35,6 +35,18 @@ On the first 1,000 held-out test stories (220,416 evaluated tokens):
 
 The model generates dialogue and short story structures, but can repeat itself, change character names, and lose track of objects or events.
 
+### Training loss
+
+Training loss continued decreasing as the model learned to predict tokens in the training stories.
+
+![Training loss over optimizer steps](TRAINING_LOSS_CHART.png)
+
+### Validation loss
+
+Validation loss dropped quickly, then mostly leveled off while training loss kept decreasing. More training was giving little improvement on held-out validation stories.
+
+![Validation loss over optimizer steps](VALIDATION_LOSS_CHART.png)
+
 ## Run it
 
 With the Python environment activated, place `pretrained-final.pt` in `base_gpt/checkpoints/`. From the repository root:
@@ -45,6 +57,8 @@ python base_gpt/gpt/generate.py
 
 Data lives in `gpt_data/`; weights live in `checkpoints/`. Both are excluded from Git, so cloning the code alone does not include them.
 
-I implemented the model and worked through the training, testing, and generation code with assistance. Delegated sections are marked in the source.
+## Build your own
 
-Feel free to work through the base_gpt/skeleton folder! If you follow the TODOs, it's a step by step guide to build you're very own. The most important parts to internalize will written personally by you!
+The [`skeleton/`](skeleton/) folder contains the same core files with TODOs and short explanations. Work through them step by step to build, train, test, and run your own GPT. You write the important parts yourself.
+
+I implemented the model and worked through the training, testing, and generation code with assistance. Delegated sections are marked in the source.
