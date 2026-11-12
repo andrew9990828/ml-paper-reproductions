@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+gpt_data/*
+!gpt_data/.gitkeep
+checkpoints/*
+!checkpoints/.gitkeep
+wandb/
+**/wandb/
+.env

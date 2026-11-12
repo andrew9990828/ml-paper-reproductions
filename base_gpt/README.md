@@ -46,3 +46,5 @@ python base_gpt/gpt/generate.py
 Data lives in `gpt_data/`; weights live in `checkpoints/`. Both are excluded from Git, so cloning the code alone does not include them.
 
 I implemented the model and worked through the training, testing, and generation code with assistance. Delegated sections are marked in the source.
+
+Feel free to work through the base_gpt/skeleton folder! If you follow the TODOs, it's a step by step guide to build you're very own. The most important parts to internalize will written personally by you!
