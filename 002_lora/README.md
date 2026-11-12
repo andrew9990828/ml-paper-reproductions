@@ -332,11 +332,11 @@ The objective is to understand the model well enough that future transformer arc
 - [x] Feed-forward network
 - [x] Transformer block
 - [x] Full GPT model
-- [ ] Training loop
-- [ ] Model checkpointing
-- [ ] Autoregressive generation
-- [ ] Train GPT on TinyStories
-- [ ] Evaluate generated output
+- [x] Training loop
+- [x] Model checkpointing
+- [x] Autoregressive generation
+- [x] Train GPT on TinyStories
+- [x] Evaluate generated output
 
 ### LoRA
 

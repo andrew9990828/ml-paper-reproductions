@@ -37,7 +37,7 @@ hf_cache/
 *.log
 
 # Ignore massive dataset
-002_lora/gpt_data/
+/base_gpt/gpt_data/
 # Generated training checkpoints and W&B logs
-/002_lora/checkpoints/
-/002_lora/wandb/
+/base_gpt/checkpoints/
+/base_gpt/wandb/
