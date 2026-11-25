@@ -1,14 +1,13 @@
 # =============================================================================
 # Author: Andrew Bieber <andrewbieber.work@gmail.com>
-# Last updated: 11/14/26
+# Last updated: 11/25/26
 # File: cnn_pixel_shuffle.py
 #
-# =======================================================================
 # MNIST Digit Classifier
 #
 # Mental Model
 #
-# 1. Load and batch the data (DONE)
+# 1. Load and batch the data 
 #    Each example is a 28 x 28 grayscale image and a label from 0 to 9.
 #    A batch gives us images [B, 1, 28, 28] and integer labels [B].
 #    Set aside some of the training images for validation.
@@ -27,12 +26,8 @@
 #    Run the model on validation images after each epoch. The largest
 #    logit gives the predicted digit. Count how often it matches the label.
 #    Use the separate test split for the final evaluation.
-# =======================================================================
 # =============================================================================
-
-
 import torch
-import torchvision
 import torch.nn as nn
 
 
@@ -47,9 +42,35 @@ class CNN(nn.Module):
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
         # flatten before to get 32*7*7
         self.linear = nn.Linear(32*7*7, out_features=num_classes)
-
         # go from [1, 16] -> [16, 32] -> [32*7*7, 10]
 
-    def forward(self, ):
+    def forward(self, x:input):
+        # [1, 1, 28, 28]
+        x = self.conv1(x)
+        # [1, 16, 28, 28]
+        x = self.activation(x)
+        # [1, 16, 28, 28]
+        x = self.pool(x)
+        # [1, 16, 14, 14]
+        x = self.conv2(x)
+        # [1, 32, 14, 14]
+        x = self.activation(x)
+        # [1, 32, 14, 14]
+        pooled = self.pool(x)
+        # [1, 32, 7, 7]
+        logits = torch.flatten(pooled, start_dim=1, end_dim=-1)
+        # [1, 1568]
+        out = self.linear(logits)
+        # [1, 10]
+        return out
 
 
+if __name__ == "__main__":
+    data = torch.load("002_lenet_inspired_cnn/data/data_sets/training/train.pt", mmap=True, weights_only=True)
+    print(type(data))
+    image = data["images"][0]
+    image = image.unsqueeze(0)
+    x = image.unsqueeze(0).float()
+    cnn = CNN()
+    out = cnn(x)
+    print(out)
